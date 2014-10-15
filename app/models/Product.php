@@ -2,6 +2,7 @@
 
 class Product extends Eloquent {
 	protected $guarded = array();
+	public $timestamps = false;
 
 	public static $rules = array(
 		'name' => 'required',
@@ -13,4 +14,17 @@ class Product extends Eloquent {
 	public function category() {
 		return $this->belongsTo('Category','categoryId');
 	}
+
+	public function locations() {
+        return $this->hasMany('Location');
+    }
+
+    public function colors() {
+        return $this->morphMany('Color', 'of');
+    }
+
+    public function colorizableElements() {
+    	return $this->hasMany('ColorizableElement');
+    }
+
 }

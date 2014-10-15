@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCategoriesTable extends Migration {
+class CreateColorizableelementsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,12 @@ class CreateCategoriesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('categories', function(Blueprint $table) {
+		Schema::create('colorizableElements', function(Blueprint $table) {
 			$table->increments('id');
+			$table->string('css_id');
 			$table->string('name');
-			$table->string('thumbUrl');
-			$table->timestamps();
+			$table->integer('of_id');
+			$table->string('of_type');
 		});
 	}
 
@@ -28,7 +29,7 @@ class CreateCategoriesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('categories');
+		Schema::drop('colorizableElements');
 	}
 
 }

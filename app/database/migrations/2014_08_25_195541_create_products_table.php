@@ -18,7 +18,12 @@ class CreateProductsTable extends Migration {
 			$table->string('name');
 			$table->text('description');
 			$table->integer('price');
-			$table->timestamps();
+			$table->string('thumbUrl');
+			$table->string('sizes')->nullable();
+			$table->boolean('multicolor')->default(false);
+			$table->boolean('resizable')->default(false);
+			$table->boolean('showRuler')->default(false);
+			$table->boolean('namesNumbersEnabled')->default(false);
 		});
 	}
 

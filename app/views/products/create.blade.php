@@ -24,7 +24,6 @@
               {{ Form::text('name', Input::old('name'), array('class'=>'form-control', 'placeholder'=>'Name')) }}
             </div>
         </div>
-
         <?php $categories = array(0 => 'Choose category');
         foreach (Category::get(array('id', 'name')) as $cat) {
             $categories[$cat->id] = $cat->name;
@@ -35,21 +34,37 @@
                 {{ Form::select('categoryId', $categories, Input::old('categoryId'), array('class'=>'form-control')) }}
             </div>
         </div>
-
+        <div class="form-group">
+            {{ Form::label('thumbUrl', 'Thumb URL:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+              {{ Form::text('thumbUrl', Input::old('thumbUrl'), array('class'=>'form-control', 'placeholder'=>'Thumbnail URL')) }}
+            </div>
+        </div>
         <div class="form-group">
             {{ Form::label('description', 'Description:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
               {{ Form::textarea('description', Input::old('description'), array('class'=>'form-control', 'placeholder'=>'Description')) }}
             </div>
         </div>
-
+        <div class="form-group">
+            {{ Form::label('options', 'Options:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+                {{ Form::label('multicolor', 'Is multicolor', array('class'=>'control-label')) }}
+                {{ Form::checkbox('multicolor', Input::old('multicolor')) }}<br/>
+                {{ Form::label('resizable', 'Is resizable', array('class'=>'control-label')) }}
+                {{ Form::checkbox('resizable', Input::old('resizable')) }}<br/>
+                {{ Form::label('showRuler', 'Show ruler', array('class'=>'control-label')) }}
+                {{ Form::checkbox('showRuler', Input::old('showRuler')) }}<br/>
+                {{ Form::label('namesNumbersEnabled', 'Enable Names/Numbers', array('class'=>'control-label')) }}
+                {{ Form::checkbox('namesNumbersEnabled', Input::old('namesNumbersEnabled')) }}
+            </div>
+        </div>
         <div class="form-group">
             {{ Form::label('price', 'Price:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
               {{ Form::input('number', 'price', Input::old('price'), array('class'=>'form-control')) }}
             </div>
         </div>
-
 
 <div class="form-group">
     <label class="col-sm-2 control-label">&nbsp;</label>

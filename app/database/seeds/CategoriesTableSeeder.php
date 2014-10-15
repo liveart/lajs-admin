@@ -8,16 +8,17 @@ class CategoriesTableSeeder extends Seeder {
 		DB::table('categories')->truncate();
 
 		$categories = array(
-			array(
-				'name'=>'TShirts',
-				'thumbUrl'=>'zzz',
-				'updated_at'=>DB::raw('datetime("now")'),
-				'created_at'=>DB::raw('datetime("now")')
-				)
+			array('name'=>'Caps','thumbUrl'=>'zzz'),
+			array('name'=>'TShirts','thumbUrl'=>'zzz'),
+			array('name'=>'Signs','thumbUrl'=>'zzz'),
 		);
 
 		// Uncomment the below to run the seeder
-		DB::table('categories')->insert($categories);
+		foreach ($categories as $cat) {
+			Category::create($cat);
+		}
+		//DB::table('categories')->insert($categories);
 	}
 
 }
+

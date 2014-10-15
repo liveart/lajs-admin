@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCategoriesTable extends Migration {
+class CreateFontsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,14 @@ class CreateCategoriesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('categories', function(Blueprint $table) {
+		Schema::create('fonts', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->string('thumbUrl');
-			$table->timestamps();
+			$table->string('fontFamily');
+			$table->integer('ascent');
+			$table->string('vector');
+			$table->boolean('boldAllowed')->default(true);
+			$table->boolean('italicAllowed')->default(true);
 		});
 	}
 
@@ -28,7 +31,7 @@ class CreateCategoriesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('categories');
+		Schema::drop('fonts');
 	}
 
 }

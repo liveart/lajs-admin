@@ -10,17 +10,32 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>Name</th>
+				<th>Name/Options</th>
+				<th>Category</th>
 				<th>Description</th>
 				<th>Price</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
-
 		<tbody>
 			@foreach ($products as $product)
 				<tr>
-					<td>{{{ $product->name }}}</td>
+					<td>
+						{{{ $product->name }}}
+						@if ($product->multicolor)
+							<span class="badge">multicolor</span>
+						@endif
+						@if ($product->resizable)
+							<span class="badge">resizable</span>
+						@endif
+						@if ($product->showRuler)
+							<span class="badge">showRuler</span>
+						@endif
+						@if ($product->namesNumbersEnabled)
+							<span class="badge">namesNumbersEnabled</span>
+						@endif
+					</td>
+					<td>{{{ $product->category->name }}}</td>
 					<td>{{{ $product->description }}}</td>
 					<td>{{{ $product->price }}}</td>
                     <td>

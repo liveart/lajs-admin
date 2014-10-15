@@ -17,7 +17,20 @@ Route::get('/', function()
 });
 
 Route::resource('products', 'ProductsController');
-Route::resource('categories', 'CategoriesController');
+	Route::resource('categories', 'CategoriesController');
+	Route::resource('locations', 'LocationsController');
+	Route::resource('colorizableElements', 'ColorizableElementsController');
+Route::resource('graphicsCategories', 'GraphicscategoriesController');
+	Route::resource('graphicsItems', 'GraphicsitemsController');
+Route::resource('fonts', 'FontsController');
+Route::resource('colors', 'ColorsController');
+
+// Import
+Route::get('import','ImportController@showIndex');
+Route::post('import','ImportController@importFonts');
 
 // JSON Routes
-Route::get('/api/products', 'ProductsController@getJSON');
+Route::get('/api/products', 'ProductsController@toJSON');
+Route::get('/api/graphics', 'GraphicsItemsController@toJSON');
+Route::get('/api/fonts', 'FontsController@toJSON');
+Route::get('/api/colors', 'ColorsController@toJSON');

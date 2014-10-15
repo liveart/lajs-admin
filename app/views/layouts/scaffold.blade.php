@@ -17,10 +17,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li>{{ link_to_route('products.index', 'Products') }}</li>
-        <li>{{ link_to_route('categories.index', 'Categories') }}</a></li>
-        <li><a href="#">Gallery Categories</a></li>
-        <li><a href="#">Gallery Items</a></li>
-        <li><a href="#">Fonts</a></li>
+        <li>{{ link_to_route('categories.index', 'Categories') }}</li>
+        <li>{{ link_to_route('graphicsCategories.index', 'Graphics Categories') }}</li>
+        <li>{{ link_to_route('graphicsItems.index', 'Graphics Items') }}</li>
+        <li>{{ link_to_route('fonts.index', 'Fonts') }}</li>
+        <li>{{ link_to_route('colors.index', 'Colors') }}</li>
+        <li>{{ link_to('/import', 'Import from JSON') }}</li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
