@@ -3,6 +3,7 @@
 class ColorizableElement extends Eloquent {
 	protected $guarded = array();
 	protected $table = 'colorizableElements';
+	protected $hidden = array('css_id','of_id','of_type');
 
 	public static $rules = array(
 		'css_id' => 'required',

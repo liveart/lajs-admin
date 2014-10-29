@@ -8,6 +8,7 @@ class ImportController extends BaseController {
 	{ 
 		$this->rules = array(
 			'fontsURL' => 'required|url',
+			'graphicsURL' => 'required|url',
 		);
 	}
 
@@ -22,9 +23,62 @@ class ImportController extends BaseController {
 	}
 
 	/**
+	 * Import graphic gallery from JSON
+	 * 
+	 */
+	public function importGraphics() {
+		$input = Input::all();
+		$v = Validator::make($input, $this->rules);
+
+		if ($v->passes()) {
+			$url = Input::get('graphicsURL');
+			$json = file_get_contents($url); 
+			$data = json_decode($json);
+			$atts = array('name','description','colors');
+			foreach ($data->graphicsCategoriesList as $row) {
+				$cat = new GraphicsCategory;
+				$cat->name = $row->name;
+				$cat->save();
+				foreach ($row->graphicsList as $g) {
+					$graphic = new GraphicsItem;
+					$graphic->category = $cat;
+					$graphic->name = $g->name;
+					$graphic->description = $g->description;
+					$graphic->thumb = $g->thumb;
+					$graphic->image = $g->image;
+					// optional atts block
+					if (property_exists($g, 'colors')) {
+						$graphic->colors = intval($g->colors);
+					}
+					if (property_exists($g, 'multicolor')) {
+						$graphic->multicolor = $g->multicolor;
+					}
+					// "colorize": true - would be a synthesized att,
+					// so we are not importing it
+					$graphic->save();
+					if (property_exists($g, 'colorizableElements')) {
+						foreach ($g->colorizableElements as $ce) {
+							$el = new ColorizableElement;
+							$el->name = $ce->name;
+							$el->css_id = $ce->id;
+							$el->colorizable = $graphic;
+							// if needed add colors import here
+							$el->save();
+						}
+					}
+				}
+			}
+			return Redirect::route('graphicsItems.index')->with('message','Gallery was imported!');
+		}
+		// TODO add error messages here when necessary
+		return View::make('import.index');
+	}
+
+
+	/**
 	 * Import fonts from JSON to DB
 	 *
-	 * @return Response
+	 * @return redirects to imported data page
 	 */
 	public function importFonts()
 	{
@@ -48,7 +102,7 @@ class ImportController extends BaseController {
 			}
 			return Redirect::route('fonts.index')->with('message','Fonts were imported!');
 		}
-		// add error messages here
+		// TODO add error messages here
 		return View::make('import.index');
 	}
 }

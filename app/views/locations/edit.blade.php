@@ -30,8 +30,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('editableArea', 'Editable Area:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-                <!-- TODO make fixed width like 50px -->
+            <div class="col-sm-10 form-inline">
                 {{ Form::text('left', $left, array('class'=>'form-control', 'placeholder'=>'Left')) }}
                 {{ Form::text('top', $top, array('class'=>'form-control', 'placeholder'=>'Top')) }}
                 {{ Form::text('right', $right, array('class'=>'form-control', 'placeholder'=>'Right')) }}
@@ -40,16 +39,14 @@
         </div>
         <div class="form-group">
             {{ Form::label('editableAreaUnits', 'Editable Area Units:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-                <!-- TODO make fixed width like 50px -->
+            <div class="col-sm-10 form-inline">
                 {{ Form::text('width', $width, array('class'=>'form-control', 'placeholder'=>'Width')) }}
                 {{ Form::text('height', $height, array('class'=>'form-control', 'placeholder'=>'Height')) }}
             </div>
         </div>
         <div class="form-group">
             {{ Form::label('clipRect', 'Clip Rect:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-                <!-- TODO make fixed width like 50px -->
+            <div class="col-sm-10 form-inline">
                 {{ Form::text('cr_left', $cr_left, array('class'=>'form-control', 'placeholder'=>'Left')) }}
                 {{ Form::text('cr_top', $cr_top, array('class'=>'form-control', 'placeholder'=>'Top')) }}
                 {{ Form::text('cr_right', $cr_right, array('class'=>'form-control', 'placeholder'=>'Right')) }}

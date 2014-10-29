@@ -127,7 +127,19 @@ class ColorizableElementsController extends BaseController {
 			$colorizableElement = $this->colorizableElement->find($id);
 			$colorizableElement->colors()->sync(Input::get('color_ids'));
 			$colorizableElement->update($input);
-
+			switch ($colorizableElement->of_type) {
+				case 'Product':
+					return Redirect::route('products.edit', $colorizableElement->of_id)
+						->with('message', 'Colorizable element was updated.');
+					break;
+				case 'GraphicsItem':
+					return Redirect::route('graphicsItems.edit', $colorizableElement->of_id)
+						->with('message', 'Colorizable element was updated.');
+					break;
+				default:
+					return Redirect::route('colorizableElements.index');
+					break;
+			}
 			return Redirect::route('colorizableElements.show', $id);
 		}
 

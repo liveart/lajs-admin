@@ -28,6 +28,7 @@ Route::resource('colors', 'ColorsController');
 // Import
 Route::get('import','ImportController@showIndex');
 Route::post('import','ImportController@importFonts');
+Route::post('import','ImportController@importGraphics');
 
 // JSON Routes
 Route::get('/api/products', 'ProductsController@toJSON');

@@ -31,25 +31,23 @@
         </div>
         <div class="form-group">
             {{ Form::label('editableArea', 'Editable Area:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-                {{ Form::text('left', Input::old('left'), array('class'=>'form-control col-md-1', 'placeholder'=>'Left')) }}
-                {{ Form::text('top', Input::old('top'), array('class'=>'form-control col-md-1', 'placeholder'=>'Top')) }}
-                {{ Form::text('right', Input::old('right'), array('class'=>'form-control col-md-1', 'placeholder'=>'Right')) }}
-                {{ Form::text('bottom', Input::old('bottom'), array('class'=>'form-control col-md-1', 'placeholder'=>'Bottom')) }}
+            <div class="col-sm-10 form-inline">
+                {{ Form::text('left', Input::old('left'), array('class'=>'form-control', 'placeholder'=>'Left')) }}
+                {{ Form::text('top', Input::old('top'), array('class'=>'form-control', 'placeholder'=>'Top')) }}
+                {{ Form::text('right', Input::old('right'), array('class'=>'form-control', 'placeholder'=>'Right')) }}
+                {{ Form::text('bottom', Input::old('bottom'), array('class'=>'form-control', 'placeholder'=>'Bottom')) }}
             </div>
         </div>
         <div class="form-group">
             {{ Form::label('editableAreaUnits', 'Editable Area Units:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-                <!-- TODO make fixed width like 50px -->
+            <div class="col-sm-10 form-inline">
                 {{ Form::text('width', Input::old('width'), array('class'=>'form-control', 'placeholder'=>'Width')) }}
                 {{ Form::text('height', Input::old('height'), array('class'=>'form-control', 'placeholder'=>'Height')) }}
             </div>
         </div>
         <div class="form-group">
             {{ Form::label('clipRect', 'Clip Rect:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-                <!-- TODO make fixed width like 50px -->
+            <div class="col-sm-10 form-inline">
                 {{ Form::text('cr_left', Input::old('cr_left'), array('class'=>'form-control', 'placeholder'=>'Left')) }}
                 {{ Form::text('cr_top', Input::old('cr_top'), array('class'=>'form-control', 'placeholder'=>'Top')) }}
                 {{ Form::text('cr_right', Input::old('cr_right'), array('class'=>'form-control', 'placeholder'=>'Right')) }}

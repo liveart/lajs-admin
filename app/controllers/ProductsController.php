@@ -128,30 +128,7 @@ class ProductsController extends BaseController {
 	}
 
 	public function toJSON() {
-		$json = array();
-		$cats = Category::all();
-		$json['productCategoriesList'] = $cats;
-		foreach ($cats as $cat) {
-			$cat['products'] = Product::where('categoryId','=',$cat->id)->get();
-			// adjust attributes for proper schema
-			$atts = array('multicolor','resizable','showRuler','namesNumbersEnabled');
-			foreach ($cat['products'] as $prod) {
-				foreach ($atts as $att) {
-					$prod->setAttribute($att, ($prod->getAttribute($att)=="on"));
-				}
-				$prod['locations'] = Location::where('product_id','=',$prod->id)->get();
-				foreach ($prod['locations'] as $loc) {
-					$loc->editableArea = $loc->getCoords('editableArea');
-					$loc->editableAreaUnits = $loc->getCoords('editableAreaUnits');
-					$loc->clipRect = $loc->getCoords('clipRect');
-				}
-				// TODO colors
-				// TODO colorizableElements
-				// TODO check multicolor is set if colorizableelements present
-				$prod['sizes'] = explode(',', $prod['sizes']);
-			}
-		}
-		return $json;
+		return $this->product->getJSON();
 	}
 
 }

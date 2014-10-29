@@ -2,10 +2,10 @@
 
 @section('main')
 
+<h1>Import JSON Data</h1>
+
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
-        <h1>Import JSON Data</h1>
-
         @if ($errors->any())
         	<div class="alert alert-danger">
         	    <ul>
@@ -20,6 +20,19 @@
         @endif
     </div>
 </div>
+<div class="alert alert-warning" role="alert">Warning: existing data will be purged upon import.</div>
+
+{{ Form::open(array('action' => 'ImportController@importGraphics')) }}
+<div class="row">
+    {{ Form::label('graphicsURL', 'Import Graphics JSON', array('class'=>'control-label')) }}
+    <div class="input-group">
+        {{ Form::text('graphicsURL', Input::old('graphicsURL'), array('class'=>'form-control', 'placeholder'=>'URL to Graphics JSON')) }}
+        <span class="input-group-btn">
+            {{ Form::submit('Import Gallery', array('class' => 'btn btn-default')) }}
+        </span>
+    </div>
+</div>
+{{ Form::close() }}
 
 {{ Form::open(array('action' => 'ImportController@importFonts')) }}
 <div class="row">

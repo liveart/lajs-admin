@@ -2,9 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <style>
-        body { padding-top: 20px; }
+        body { padding-top: 2px; }
     </style>
 </head>
 <body>
@@ -31,15 +33,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-
             @if (Session::has('message'))
-                <div class="flash alert">
+                <div class="flash alert alert-success" role="alert">
                     <p>{{ Session::get('message') }}</p>
                 </div>
             @endif
-
             @yield('main')
-
         </div>
     </div>
 </div>

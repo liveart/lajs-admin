@@ -13,6 +13,10 @@ class GraphicsItem extends Eloquent {
 		'image' => 'required'
 	);
 
+	public function category() {
+		return $this->belongsTo('Category');
+	}
+
 	public function colorizableElements() {
     	return $this->morphMany('ColorizableElement', 'of');
     }

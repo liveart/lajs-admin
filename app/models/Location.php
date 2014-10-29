@@ -6,8 +6,7 @@ class Location extends Eloquent {
 	public $timestamps = false;
 
 	public static $rules = array(
-		'name' => 'required',
-		'product_id' => 'required|exists:products,id',
+		'name' => 'required'
 	);
 
 	public function product() {

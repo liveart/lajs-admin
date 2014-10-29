@@ -46,14 +46,21 @@ class LocationsController extends BaseController {
 		if (is_null($location)) {
 			return Redirect::route('products.index');
 		}
-		// TODO update all custom accessors
-		$ea = $loc->getCoords('editableArea');
-		$eau = $loc->getCoords('editableAreaUnits');
-		$cr = $loc->getCoords('clipRect');
+		$ea = $location->getCoords('editableArea');
+		$eau = $location->getCoords('editableAreaUnits');
+		$cr = $location->getCoords('clipRect');
+		// TODO refactor to array if this is supported
 		return View::make('locations.edit', compact('location'))
-			->with('ea',$ea)
-			->with('eau',$eau)
-			->with('cr',$cr);	
+			->with('left',$ea[0])
+			->with('top',$ea[1])
+			->with('right',$ea[2])
+			->with('bottom',$ea[3])
+			->with('width',$eau[0])
+			->with('height',$eau[1])
+			->with('cr_left',$cr[0])
+			->with('cr_top',$cr[1])
+			->with('cr_right',$cr[2])
+			->with('cr_bottom',$cr[0]);	
 	}
 
 	/**
@@ -68,15 +75,15 @@ class LocationsController extends BaseController {
 		$validation = Validator::make($input, Location::$rules);
 		if ($validation->passes()) {
 			$loc = $this->location->find($id);
-			$loc->setEditableArea(array(Input::get('left'),Input::get('top'),Input::get('right'),Input::get('bottom')));
-			$loc->setEditableAreaUnits(array(Input::get('width'),Input::get('height')));
-			$loc->setClipRect(array(Input::get('cr_left'),Input::get('cr_top'),Input::get('cr_right'),Input::get('cr_bottom')));
+			$loc->setCoords(array(Input::get('left'),Input::get('top'),Input::get('right'),Input::get('bottom')),'editableArea');
+			$loc->setCoords(array(Input::get('width'),Input::get('height')),'editableAreaUnits');
+			$loc->setCoords(array(Input::get('cr_left'),Input::get('cr_top'),Input::get('cr_right'),Input::get('cr_bottom')),'clipRect');
 			// extract all custom input
 			$input = array_except($input, array('locationName','top','left','bottom','right','width','height','cr_top','cr_left','cr_bottom','cr_right'));
-			$product->update($input);
+			$loc->update($input);
 			// redirect back to parent product
 			return Redirect::route('products.edit', $loc->product->id)
-				->with('message','Location'.$loc->name.' is updated.');;
+				->with('message','Location '.$loc->name.' is updated.');;
 		}
 		return Redirect::route('locations.edit', $id)
 			->withInput()
