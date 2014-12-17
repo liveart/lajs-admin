@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+    <title>{{{ $page_title or 'Admin'}}} - LiveArt</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

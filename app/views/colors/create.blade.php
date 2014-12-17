@@ -16,7 +16,8 @@
 </div>
 
 {{ Form::open(array('route' => 'colors.store', 'class' => 'form-horizontal')) }}
-
+        {{ Form::hidden('of_id', $id) }}
+        {{ Form::hidden('of_type', $type) }}
         <div class="form-group">
             {{ Form::label('name', 'Name:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">

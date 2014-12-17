@@ -21,7 +21,7 @@ class Product extends Eloquent {
     }
 
     public function colors() {
-        return $this->morphMany('Color', 'of');
+        return $this->morphToMany('Color', 'colorable','colorable');
     }
 
     public function colorizables() {

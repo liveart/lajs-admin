@@ -1,4 +1,4 @@
-@extends('layouts.scaffold')
+@extends('layouts.scaffold', array('page_title'=>'Editing product'))
 @section('main')
 
 <div class="row">

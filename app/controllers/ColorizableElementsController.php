@@ -50,15 +50,6 @@ class ColorizableElementsController extends BaseController {
 
 		if ($validation->passes())
 		{
-			/*
-			$rel_id = Input::get('id');
-			$rel_type = Input::get('type');
-			// TODO fetch the related entity to associate with
-			$this->colorizableElement = new ColorizableElement;
-			$this->colorizableElement->name = Input::get('name');
-			$this->colorizableElement->css_id = Input::get('css_id');
-			$this->colorizableElement->save();
-			*/
 			// TODO redirect back to originated page
 			$this->colorizableElement->create($input);
 			return Redirect::route('colorizableElements.index');
@@ -78,7 +69,6 @@ class ColorizableElementsController extends BaseController {
 	public function show($id)
 	{
 		$colorizableElement = $this->colorizableElement->findOrFail($id);
-
 		return View::make('colorizableElements.show', compact('colorizableElement'));
 	}
 

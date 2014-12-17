@@ -5,7 +5,6 @@ class Color extends Eloquent {
 	protected $hidden = array('id');
 
 	public static $rules = array();
-	
 	public $timestamps = false;
 
 	// can add here morph to many accessors like products, colorizableElements, etc.

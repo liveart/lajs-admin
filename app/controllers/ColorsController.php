@@ -27,7 +27,9 @@ class ColorsController extends BaseController {
 	 */
 	public function create()
 	{
-        return View::make('colors.create');
+        return View::make('colors.create')
+        	->with('id',Request::query('id'))
+			->with('type',Request::query('type'));
 	}
 
 	/**
@@ -41,7 +43,12 @@ class ColorsController extends BaseController {
 		$validation = Validator::make($input, Color::$rules);
 		if ($validation->passes())
 		{
-			$this->color->create($input);
+			$cl = $this->color->create(array_except($input, array('of_id','of_type')));
+			if (null !== Input::get('of_id')) {
+				// attempt to fetch the product
+				$prod = Product::find(Input::get('of_id'));
+				$prod->colors()->save($cl);
+			}
 			return Redirect::route('colors.index');
 		}
 		return Redirect::route('colors.create')
@@ -74,7 +81,7 @@ class ColorsController extends BaseController {
 		{
 			return Redirect::route('colors.index');
 		}
-		return View::make('colors.edit', compact('font'));
+		return View::make('colors.edit', compact('color'));
 	}
 
 	/**
@@ -91,7 +98,13 @@ class ColorsController extends BaseController {
 		{
 			$color = $this->color->find($id);
 			$color->update($input);
-			return Redirect::route('colors.index');
+			switch ($color->of_type) {
+				case 'Product':
+					return Redirect::route('products.edit', $color->of_id)
+						->with('message', 'Color updated.');
+				default:
+					return Redirect::route('colors.index'); 
+			}
 		}
 		return Redirect::route('colors.edit', $id)
 			->withInput()
@@ -112,6 +125,7 @@ class ColorsController extends BaseController {
 
 	public function toJSON() {
 		$json = array();
+		// TODO filter out product colors
 		$json['colors'] = $this->color->orderBy('name','asc')->get();
 		return $json;
 	}

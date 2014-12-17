@@ -16,27 +16,25 @@
 </div>
 
 {{ Form::model($color, array('class' => 'form-horizontal', 'method' => 'PATCH', 'route' => array('colors.update', $color->id))) }}
-
-        <div class="form-group">
-            {{ Form::label('name', 'Name:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('name', Input::old('name'), array('class'=>'form-control', 'placeholder'=>'Name')) }}
-            </div>
+    <div class="form-group">
+        {{ Form::label('name', 'Name:', array('class'=>'col-md-2 control-label')) }}
+        <div class="col-sm-10">
+          {{ Form::text('name', Input::old('name'), array('class'=>'form-control', 'placeholder'=>'Name')) }}
         </div>
-        <div class="form-group">
-            {{ Form::label('value', 'HEX Code:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('value', Input::old('value'), array('class'=>'form-control', 'placeholder'=>'Hex Code, e.g. #00EE76')) }}
-            </div>
-        </div>
-
-<div class="form-group">
-    <label class="col-sm-2 control-label">&nbsp;</label>
-    <div class="col-sm-10">
-      {{ Form::submit('Update', array('class' => 'btn btn-lg btn-primary')) }}
-      {{ link_to_route('colors.index', 'Cancel', null, array('class' => 'btn btn-lg btn-default')) }}
     </div>
-</div>
+    <div class="form-group">
+        {{ Form::label('value', 'HEX Code:', array('class'=>'col-md-2 control-label')) }}
+        <div class="col-sm-10">
+          {{ Form::text('value', Input::old('value'), array('class'=>'form-control', 'placeholder'=>'Hex Code, e.g. #00EE76')) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-10">
+          {{ Form::submit('Update', array('class' => 'btn btn-lg btn-primary')) }}
+          {{ link_to_route('colors.index', 'Cancel', null, array('class' => 'btn btn-lg btn-default')) }}
+        </div>
+    </div>
 
 {{ Form::close() }}
 

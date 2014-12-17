@@ -1,5 +1,4 @@
-@extends('layouts.scaffold')
-
+@extends('layouts.scaffold', array('page_title'=>'Editing product'))
 @section('main')
 
 <div class="row">
@@ -22,6 +21,7 @@
 <ul class="nav nav-tabs" role="tablist" id="tabs">
   <li class="active"><a href="#main" role="tab" data-toggle="tab">Main</a></li>
   <li><a href="#locations" role="tab" data-toggle="tab">Locations</a></li>
+  <li><a href="#colors" role="tab" data-toggle="tab">Colors</a></li>
   <li><a href="#colorizable" role="tab" data-toggle="tab">Colorizable Elements</a></li>
   <li><a href="#pcl" role="tab" data-toggle="tab">Product Color Images</a></li>
 </ul>
@@ -91,37 +91,77 @@
   </div>
   <div class="tab-pane panel-body" id="locations">
     <div class="form-group">
-            {{ Form::label('locations', 'Locations:', array('class'=>'col-md-2 control-label')) }}
+        {{ Form::label('locations', 'Locations:', array('class'=>'col-md-2 control-label')) }}
+        <div class="col-sm-10">
+            <p>{{ link_to_route('locations.create', 'New Location', 
+                        array('product_id'=>$product->id), 
+                        array('class' => 'btn btn-sm btn-primary')) }}</p>
+            @if ($product->locations->count())
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Editable Area</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($product->locations as $loc)
+                            <tr>
+                                <td>{{{ $loc->name }}}</td>
+                                <td>{{{ $loc->editableArea }}}</td>
+                                <td>
+                                    {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('locations.destroy', $loc->id))) }}
+                                        {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                                    {{ Form::close() }}
+                                    {{ link_to_route('locations.edit', 'Edit', array($loc->id), array('class' => 'btn btn-info')) }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                No locations defined yet.
+            @endif
+        </div>
+    </div>
+  </div>
+  <div class="tab-pane panel-body" id="colors">
+    <div class="form-group">
+            {{ Form::label('colors', 'Colors:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
-                <p>{{ link_to_route('locations.create', 'New Location', 
-                            array('product_id'=>$product->id), 
+                <p>{{ link_to_route('colors.create', 'New Product Color', 
+                            array('id'=>$product->id, 'type'=>'Product'), 
                             array('class' => 'btn btn-sm btn-primary')) }}</p>
-                @if ($product->locations->count())
+                @if ($product->colors->count())
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Editable Area</th>
+                                <th>Color RGB</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($product->locations as $loc)
+                            @foreach ($product->colors as $color)
                                 <tr>
-                                    <td>{{{ $loc->name }}}</td>
-                                    <td>{{{ $loc->editableArea }}}</td>
+                                    <td>{{{ $color->name }}}</td>
                                     <td>
-                                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('locations.destroy', $loc->id))) }}
+                                        <div style="width:70px;height:30px;border:1px solid black;background-color:{{{ $color->value }}};"></div>
+                                        {{{ $color->value }}}
+                                    </td>
+                                    <td>
+                                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('colors.destroy', $color->id))) }}
                                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                                         {{ Form::close() }}
-                                        {{ link_to_route('locations.edit', 'Edit', array($loc->id), array('class' => 'btn btn-info')) }}
+                                        {{ link_to_route('colors.edit', 'Edit', array($color->id), array('class' => 'btn btn-info')) }}
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 @else
-                    No locations defined yet.
+                    No colors defined yet.
                 @endif
             </div>
         </div>
