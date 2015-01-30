@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration {
 			$table->integer('categoryId')->unsigned();
 			$table->string('name');
 			$table->text('description');
-			$table->integer('price');
+			$table->text('data');
 			$table->string('thumbUrl');
 			$table->string('sizes')->nullable();
 			$table->boolean('multicolor')->default(false);

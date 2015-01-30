@@ -70,10 +70,10 @@
             </div>
         </div>
         <div class="form-group">
-            {{ Form::label('price', 'Price:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::input('number', 'price', Input::old('price'), array('class'=>'form-control')) }}
-            </div>
+          {{ Form::label('data', 'Custom Data(json):', array('class'=>'col-md-2 control-label')) }}
+          <div class="col-sm-10">
+              {{ Form::textarea('data', Input::old('data'), array('class'=>'form-control', 'placeholder'=>'{"price": "29", "material": "Cotton"}')) }}
+          </div>
         </div>
         <div class="form-group">
             {{ Form::label('sizes', 'Sizes:', array('class'=>'col-md-2 control-label')) }}
@@ -203,7 +203,50 @@
             </div>
         </div>
   </div>
-  <div class="tab-pane panel-body" id="pcl">...</div>
+  <div class="tab-pane panel-body" id="pcl">
+      <!-- At least one location and one color should be defined to start with PCLI -->
+      @if (($product->colors->count())&&($product->locations->count()))
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Color</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @if ($product->pclis->count())
+                @foreach($product->pclis as $pcli)
+                    <tr>
+                        <td>{{{ ($pcli->location != null) ? $pcli->location->name : 'Missing!'}}}</td>
+                        <td>{{{ ($pcli->color != null) ? $pcli->color->name : 'Missing!'}}}</td>
+                        <td>{{{$pcli->image}}}</td>
+                        <td>
+                            {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('pclis.destroy', $pcli->id, $product->id))) }}
+                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                            {{ Form::close() }}
+                        </td>
+                    </tr>
+                @endforeach
+                @endif
+                    <?php $locs = array(); foreach ($product->locations as $loc) { $locs[$loc->id] = $loc->name; } ?>
+                    <?php $cls = array(); foreach ($product->colors as $cl) { $cls[$cl->id] = $cl->name; } ?>
+                    {{ Form::open(array('route' => 'pclis.store', 'style' => 'display: inline-block;')) }}
+                    {{ Form::hidden('product_id',$product->id) }}
+                    <tr>
+                        <td>{{ Form::select('location_id', $locs, null, array('class'=>'form-control')) }}</td>
+                        <td>{{ Form::select('color_id', $cls, null, array('class'=>'form-control')) }}</td>
+                        <td>{{ Form::text('image', Input::old('image'), array('class'=>'form-control', 'placeholder'=>'Location URL or Path')) }}</td>
+                        <td>{{ Form::submit('Add', array('class' => 'btn btn-sm')) }}</td>
+                    </tr>
+                    {{ Form::close() }}
+              </tbody>
+          </table>
+      @else
+          Add at least one color and location before working with images.
+      @endif
+  </div>
 </div>
 <script>
     $('#tabs a').click(function (e) {

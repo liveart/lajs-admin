@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"dollar/generators": "dev-master"
+		"dollar/generators": "dev-master",
+	  	"barryvdh/laravel-ide-helper": "1.*"
 	},
 	"autoload": {
 		"classmap": [
@@ -19,15 +20,16 @@
 	},
 	"scripts": {
 		"post-install-cmd": [
-			"art clear-compiled",
-			"art optimize"
+			"php55 artisan clear-compiled",
+			"php55 artisan optimize"
 		],
 		"post-update-cmd": [
-			"art clear-compiled",
-			"art optimize"
+			"php55 artisan clear-compiled",
+		  	"php55 artisan ide-helper:generate",
+			"php55 artisan optimize"
 		],
 		"post-create-project-cmd": [
-			"php artisan key:generate"
+			"php55 artisan key:generate"
 		]
 	},
 	"config": {

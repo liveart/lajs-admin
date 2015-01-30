@@ -19,7 +19,6 @@
 		<tr>
 			<td>{{{ $product->name }}}</td>
 					<td>{{{ $product->description }}}</td>
-					<td>{{{ $product->price }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('products.destroy', $product->id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}

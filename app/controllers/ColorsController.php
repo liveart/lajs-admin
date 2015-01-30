@@ -16,6 +16,7 @@ class ColorsController extends BaseController {
 	 */
 	public function index()
 	{
+		// TODO filter out product-linked colors to separate from deco colors
 		$colors = $this->color->orderBy('name','asc')->get();;
 		return View::make('colors.index', compact('colors'));
 	}
@@ -44,7 +45,7 @@ class ColorsController extends BaseController {
 		if ($validation->passes())
 		{
 			$cl = $this->color->create(array_except($input, array('of_id','of_type')));
-			if (null !== Input::get('of_id')) {
+			if ('' !== Input::get('of_id')) {
 				// attempt to fetch the product
 				$prod = Product::find(Input::get('of_id'));
 				$prod->colors()->save($cl);

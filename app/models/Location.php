@@ -13,6 +13,10 @@ class Location extends Eloquent {
 		return $this->belongsTo('Product');
 	}
 
+	public function pcli() {
+		return $this->hasMany('Pcli');
+	}
+
 	// general accessor to all coord types for location
 	public function getCoords($type) {
 		$att = $this->getAttribute($type);

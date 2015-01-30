@@ -39,6 +39,12 @@
                     <p>{{ Session::get('message') }}</p>
                 </div>
             @endif
+            @if (Session::has('error'))
+                <div class="flash alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    {{ Session::get('error') }}
+                </div>
+            @endif
             @yield('main')
         </div>
     </div>

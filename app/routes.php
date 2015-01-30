@@ -20,6 +20,7 @@ Route::resource('products', 'ProductsController');
 	Route::resource('categories', 'CategoriesController');
 	Route::resource('locations', 'LocationsController');
 	Route::resource('colorizableElements', 'ColorizableElementsController');
+	Route::resource('pclis', 'ProductColorLocationsController');
 Route::resource('graphicsCategories', 'GraphicscategoriesController');
 	Route::resource('graphicsItems', 'GraphicsitemsController');
 Route::resource('fonts', 'FontsController');

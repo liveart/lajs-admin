@@ -13,7 +13,6 @@
 				<th>Name/Options</th>
 				<th>Category</th>
 				<th>Description</th>
-				<th>Price</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -37,7 +36,6 @@
 					</td>
 					<td>{{{ $product->category->name }}}</td>
 					<td>{{{ $product->description }}}</td>
-					<td>{{{ $product->price }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('products.destroy', $product->id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}

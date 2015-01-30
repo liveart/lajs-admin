@@ -3,13 +3,12 @@
 class Product extends Eloquent {
 	protected $guarded = array();
 	public $timestamps = false;
-	protected $hidden = array('colorizables');
+	protected $hidden = array('colorizables','pclis');
 
 	public static $rules = array(
 		'name' => 'required',
 		'categoryId' => 'required|exists:categories,id',
-		'description' => 'required',
-		'price' => 'required'
+		'description' => 'required'
 	);
 
 	public function category() {
@@ -27,6 +26,10 @@ class Product extends Eloquent {
     public function colorizables() {
     	return $this->morphMany('ColorizableElement', 'of');
     }
+
+	public function pclis() {
+		return $this->hasMany('Pcli');
+	}
 
     public function getJSON() {
 		$json = array();
@@ -46,12 +49,28 @@ class Product extends Eloquent {
 					$loc->editableAreaUnits = $loc->getCoords('editableAreaUnits');
 					$loc->clipRect = $loc->getCoords('clipRect');
 				}
+				// Colors and Location Images
+				$prod['colors'] = $prod->colors;
+				foreach ($prod['colors'] as $col) {
+					// filter out the correct location images
+					$pclis = array_where($prod->pclis, function ($k, $v) use ($col) {
+						return $v->color->name == $col->name;
+					});
+					if (count($pclis)) {
+						$col['location'] = $pclis;
+						// update with custom name field
+						$col['location'] = array_map(function ($v) {
+							$v['name'] = $v->location->name;
+							return $v;
+						}, $col['location']);
+						$col['location'] = array_values($col['location']);
+					}
+				}
 				foreach ($prod->colorizables as $el) {
 					$el->id = $el->css_id;
 				}
 				$prod['colorizableElements'] = $prod['colorizables'];
-
-				// TODO product color location images
+				$prod['data'] = json_decode($prod['data']);
 				$prod['sizes'] = explode(',', $prod['sizes']);
 			}
 		}

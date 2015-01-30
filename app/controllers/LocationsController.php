@@ -99,11 +99,18 @@ class LocationsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$product_id = $this->location->product->id;
-		$this->location->find($id)->delete();
-		// TODO redirect back to master product
-		return Redirect::route('products.edit', $product_id)
-			->with('message','Location has been removed.');
+		$loc = $this->location->find($id);
+		$product_id = $loc->product->id;
+		// check if any color locations left
+		if (count($loc->pcli)) {
+			$msg = '';
+			return Redirect::route('products.edit', $product_id)
+				->with('error','Location still has Location Image records. Delete them first.');
+		} else {
+			$loc->delete();
+			return Redirect::route('products.edit', $product_id)
+				->with('message','Location has been removed.');
+		}
 	}
 	
 }
