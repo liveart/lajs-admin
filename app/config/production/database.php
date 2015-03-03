@@ -28,7 +28,7 @@ return array(
 			'host'      => 'lajs-admin.mysql.eu1.frbit.com',
 			'database'  => 'lajs-admin',
 			'username'  => 'lajs-admin',
-			'password'  => 'grdn@frmn',
+			'password'  => 'JGtTX+m2Ku5O28fEfiZfWDVC',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
