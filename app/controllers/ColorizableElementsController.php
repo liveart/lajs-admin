@@ -115,7 +115,11 @@ class ColorizableElementsController extends BaseController {
 		if ($validation->passes())
 		{
 			$colorizableElement = $this->colorizableElement->find($id);
-			$colorizableElement->colors()->sync(Input::get('color_ids'));
+            if (empty(Input::get('color_ids'))) {
+                $colorizableElement->colors()->sync(array());
+            } else {
+                $colorizableElement->colors()->sync(Input::get('color_ids'));
+            }
 			$colorizableElement->update($input);
 			switch ($colorizableElement->of_type) {
 				case 'Product':

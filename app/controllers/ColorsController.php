@@ -16,8 +16,7 @@ class ColorsController extends BaseController {
 	 */
 	public function index()
 	{
-		// TODO filter out product-linked colors to separate from deco colors
-		$colors = $this->color->orderBy('name','asc')->get();;
+		$colors = $this->color->whereDoesntHave('products')->orderBy('name','asc')->get();
 		return View::make('colors.index', compact('colors'));
 	}
 
@@ -50,6 +49,12 @@ class ColorsController extends BaseController {
 				$prod = Product::find(Input::get('of_id'));
 				$prod->colors()->save($cl);
 			}
+            switch (Input::get('of_type')) {
+                case 'Product':
+                    return Redirect::route('products.edit', Input::get('of_id'))
+                        ->with('message', 'Color has been created.');
+                    break;
+            }
 			return Redirect::route('colors.index');
 		}
 		return Redirect::route('colors.create')
@@ -99,13 +104,13 @@ class ColorsController extends BaseController {
 		{
 			$color = $this->color->find($id);
 			$color->update($input);
-			switch ($color->of_type) {
-				case 'Product':
-					return Redirect::route('products.edit', $color->of_id)
+
+            // if colorable product exists, redirect back to such product
+			if (count($color->products) > 0) {
+                return Redirect::route('products.edit', $color->products[0]->id)
 						->with('message', 'Color updated.');
-				default:
-					return Redirect::route('colors.index'); 
 			}
+            return Redirect::route('colors.index');
 		}
 		return Redirect::route('colors.edit', $id)
 			->withInput()

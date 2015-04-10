@@ -31,6 +31,10 @@ class Product extends Eloquent {
 		return $this->hasMany('Pcli');
 	}
 
+    /**
+     * Generate API json for LiveArt component
+     * @return array
+     */
     public function getJSON() {
 		$json = array();
 		$cats = Category::all();

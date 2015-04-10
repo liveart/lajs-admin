@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration {
 			$table->text('description');
 			$table->text('data');
 			$table->string('thumbUrl');
+			$table->integer('minDPU')->unsigned()->nullable();
 			$table->string('sizes')->nullable();
 			$table->boolean('multicolor')->default(false);
 			$table->boolean('resizable')->default(false);

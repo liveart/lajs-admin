@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>All ColorizableElements</h1>
+<h1>All Colorizable Elements</h1>
 
 <p>{{ link_to_route('colorizableElements.create', 'Add New ColorizableElement', null, array('class' => 'btn btn-lg btn-success')) }}</p>
 

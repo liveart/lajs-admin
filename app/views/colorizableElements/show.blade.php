@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>Show ColorizableElement</h1>
+<h1>Show Colorizable Element</h1>
 
 <p>{{ link_to_route('colorizableElements.index', 'Return to All colorizableElements', null, array('class'=>'btn btn-lg btn-primary')) }}</p>
 

@@ -17,7 +17,7 @@ class ColorizableElement extends Eloquent {
 	 *
 	 */
 	public function colorizable() {
-		return $this->morphTo();
+		return $this->morphTo('of');
 	}
 
 	public function colors() {

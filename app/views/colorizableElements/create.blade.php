@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
-        <h1>Create ColorizableElement</h1>
+        <h1>Create Colorizable Element</h1>
 
         @if ($errors->any())
         	<div class="alert alert-danger">

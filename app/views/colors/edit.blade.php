@@ -32,7 +32,11 @@
         <label class="col-sm-2 control-label">&nbsp;</label>
         <div class="col-sm-10">
           {{ Form::submit('Update', array('class' => 'btn btn-lg btn-primary')) }}
-          {{ link_to_route('colors.index', 'Cancel', null, array('class' => 'btn btn-lg btn-default')) }}
+          @if (count($color->products) > 0)
+                {{ link_to_route('products.edit', 'Cancel', array($color->products[0]->id), array('class' => 'btn btn-lg btn-default')) }}
+              @else
+                {{ link_to_route('colors.index', 'Cancel', null, array('class' => 'btn btn-lg btn-default')) }}
+          @endif
         </div>
     </div>
 

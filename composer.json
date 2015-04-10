@@ -6,7 +6,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"dollar/generators": "dev-master",
-	  	"barryvdh/laravel-ide-helper": "1.*"
+	  	"barryvdh/laravel-ide-helper": "~1.11"
 	},
 	"autoload": {
 		"classmap": [

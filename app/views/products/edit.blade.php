@@ -57,6 +57,12 @@
             </div>
         </div>
         <div class="form-group">
+            {{ Form::label('minDPU', 'Minimal Image DPI Requirement:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+              {{ Form::number('minDPU', Input::old('minDPU'), array('min'=>0, 'class'=>'form-control', 'placeholder'=>'150')) }}
+            </div>
+        </div>
+        <div class="form-group">
             {{ Form::label('options', 'Options:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
                 {{ Form::label('multicolor', 'Is multicolor', array('class'=>'control-label')) }}

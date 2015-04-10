@@ -19,7 +19,7 @@ return array(
 	*/
 	'fetch'       => PDO::FETCH_CLASS,
 
-	'default' => 'mysql',
+	'default' => 'sqlite',
 
 	'connections' => array(
 
@@ -32,7 +32,7 @@ return array(
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
-		)
+		),
 
 	),
 

@@ -8,4 +8,10 @@ class Color extends Eloquent {
 	public $timestamps = false;
 
 	// can add here morph to many accessors like products, colorizableElements, etc.
+
+    public function products()
+    {
+        return $this->morphedByMany('Product', 'colorable', 'colorable');
+    }
+
 }

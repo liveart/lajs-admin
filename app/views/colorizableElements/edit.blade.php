@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
-        <h1>Edit ColorizableElement</h1>
+        <h1>Edit Colorizable Element</h1>
 
         @if ($errors->any())
         	<div class="alert alert-danger">
@@ -19,9 +19,9 @@
 {{ Form::model($colorizableElement, array('class' => 'form-horizontal', 'method' => 'PATCH', 'route' => array('colorizableElements.update', $colorizableElement->id))) }}
 
         <div class="form-group">
-            <div class="col-md-2">Attached to:</div>
-            <div class="col-sm-10">
-                <!-- TODO Output product or graphic item here -->
+            <div class="col-md-2 control-label">Attached to:</div>
+            <div class="col-sm-10 control-label">
+                <p class="text-left">{{{ $colorizableElement->colorizable->name }}}</p>
             </div>
         </div>
 
@@ -59,7 +59,11 @@
     <label class="col-sm-2 control-label">&nbsp;</label>
     <div class="col-sm-10">
       {{ Form::submit('Update', array('class' => 'btn btn-lg btn-primary')) }}
-      {{ link_to_route('colorizableElements.show', 'Cancel', $colorizableElement->id, array('class' => 'btn btn-lg btn-default')) }}
+        @if (is_a($colorizableElement->colorizable, 'Product'))
+            {{ link_to_route('products.edit', 'Cancel', $colorizableElement->colorizable->id, array('class' => 'btn btn-lg btn-default')) }}
+        @else
+            {{ link_to_route('graphicsItems.edit', 'Cancel', $colorizableElement->colorizable->id, array('class' => 'btn btn-lg btn-default')) }}
+        @endif
     </div>
 </div>
 
