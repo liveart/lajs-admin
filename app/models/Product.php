@@ -70,10 +70,12 @@ class Product extends Eloquent {
 						$col['location'] = array_values($col['location']);
 					}
 				}
-				foreach ($prod->colorizables as $el) {
-					$el->id = $el->css_id;
-				}
-				$prod['colorizableElements'] = $prod['colorizables'];
+                if (count($prod->colorizables) > 0) {
+                    foreach ($prod->colorizables as $el) {
+                        $el->id = $el->css_id;
+                    }
+                    $prod['colorizableElements'] = $prod['colorizables'];
+                }
 				$prod['data'] = json_decode($prod['data']);
 				$prod['sizes'] = explode(',', $prod['sizes']);
 			}

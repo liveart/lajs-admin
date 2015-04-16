@@ -1,0 +1,49 @@
+﻿{
+    "productsList": {
+        "url": "config/products.json"
+    },
+    "defaultProductId": "11",
+    "defaultProductSize_": [ 32, 16 ],
+    "fonts": {
+        "url": "http://localhost:8000/api/fonts"
+    },
+    "colors": {
+        "url": "http://localhost:8000/api/colors"
+    },
+    "graphicsList": {
+        "url": "config/graphics.json"
+    },
+    "options": {
+        "deleteOnDoubleClick": false,
+        "includeProductInDesign": true,
+        "includePrintingAreaInDesign": true,
+		"includeMaskInDesign": true,
+        "fontsCSSUrl": "http://localhost/LAJS/fonts/fonts.css",
+        "zoomEnabled": true,
+        "minZoom": 50,
+        "maxZoom": 150,
+        "checkeredBackground": true,
+        "unit": "in",
+        "unit2": "ft",
+        "unitConversionMult": 12,
+        "showProductSelector": true,
+        "checkTextFXThrottle": 400,
+		"minDPU": 300
+    },
+    "textEffects": {
+        "config": "config/textEffects.json",
+		"url": "http://hive.liveartdesigner.com/mmjs/services/getTextZ.php"
+    },
+    "defaultNameObjectText": "NAMES HERE",
+    "defaultNumberObjectText": "00",
+    "assetsUrl": "assets/",
+    "galleryBaseUrl": "",
+    "getQuoteUrl": "services/getQuote.php",
+    "getDesignsUrl": "http://localhost/LAJS/services/getDesigns.php?email=${email}",
+    "saveDesignUrl": "http://localhost/LAJS/services/saveDesign.php",
+    "loadDesignUrl": "http://localhost/LAJS/services/loadDesign.php?design_id=${design_id}",
+    "redirectUrl": "http://localhost/LAJS/services/order.php?design_id=${design_id}",
+    "uploadImageUrl": "services/uploadImage.php",
+    "shareLinkUrl": "index.html?design_id=${design_id}",
+    "redirectWindow": "parent"
+}
