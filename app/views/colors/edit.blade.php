@@ -26,6 +26,7 @@
         {{ Form::label('value', 'HEX Code:', array('class'=>'col-md-2 control-label')) }}
         <div class="col-sm-10">
           {{ Form::text('value', Input::old('value'), array('class'=>'form-control', 'placeholder'=>'Hex Code, e.g. #00EE76')) }}
+            {{ Form:: }}
         </div>
     </div>
     <div class="form-group">

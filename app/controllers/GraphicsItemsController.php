@@ -68,7 +68,6 @@ class GraphicsItemsController extends BaseController {
 	public function show($id)
 	{
 		$graphicsItem = $this->graphicsItem->findOrFail($id);
-
 		return View::make('graphicsItems.show', compact('graphicsItem'));
 	}
 
@@ -104,9 +103,14 @@ class GraphicsItemsController extends BaseController {
 		if ($validation->passes())
 		{
 			$graphicsItem = $this->graphicsItem->find($id);
+            // process all checkbox values
+            $chks = array('colorize');
+            foreach ($chks as $chk) {
+                $graphicsItem->setAttribute($chk, (Input::has($chk)) ? true : false);
+            }
 			$graphicsItem->update($input);
 
-			return Redirect::route('graphicsItems.show', $id);
+            return Redirect::route('graphicsItems.index');
 		}
 
 		return Redirect::route('graphicsItems.edit', $id)

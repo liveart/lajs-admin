@@ -11,10 +11,9 @@
 		<thead>
 			<tr>
 				<th>Name</th>
+                <th>Category</th>
 				<th>Description</th>
 				<th>Colors</th>
-				<th>Thumb</th>
-				<th>Image</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -23,10 +22,9 @@
 			@foreach ($graphicsItems as $graphicsItem)
 				<tr>
 					<td>{{{ $graphicsItem->name }}}</td>
+                    <td>{{{ $graphicsItem->category->name }}}</td>
 					<td>{{{ $graphicsItem->description }}}</td>
 					<td>{{{ $graphicsItem->colors }}}</td>
-					<td>{{{ $graphicsItem->thumb }}}</td>
-					<td>{{{ $graphicsItem->image }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('graphicsItems.destroy', $graphicsItem->id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}

@@ -17,6 +17,7 @@ class CreateGraphicsitemsTable extends Migration {
 			$table->integer('category_id')->unsigned();
 			$table->string('name');
 			$table->string('description');
+            $table->boolean('colorize')->default(false);
 			$table->integer('colors');
 			$table->string('thumb');
 			$table->string('image');

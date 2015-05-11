@@ -45,6 +45,13 @@
         </div>
 
         <div class="form-group">
+            {{ Form::label('colorize', 'Colorize:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+                {{ Form::checkbox('colorize', Input::old('colorize')) }}
+            </div>
+        </div>
+
+        <div class="form-group">
             {{ Form::label('colors', 'Colors:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
               {{ Form::input('number', 'colors', Input::old('colors'), array('class'=>'form-control')) }}
