@@ -1,9 +1,7 @@
 ﻿{
     "productsList": {
-        "url": "config/products.json"
+        "url": "http://localhost:8000/api/products"
     },
-    "defaultProductId": "11",
-    "defaultProductSize_": [ 32, 16 ],
     "fonts": {
         "url": "http://localhost:8000/api/fonts"
     },
