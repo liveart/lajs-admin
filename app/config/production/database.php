@@ -4,29 +4,24 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Database Connections
+	| STAGING / PRODUCTION
 	|--------------------------------------------------------------------------
-	|
-	| Here are each of the database connections setup for your application.
-	| Of course, examples of configuring each database platform that is
-	| supported by Laravel is shown below to make development simple.
-	|
-	|
-	| All database work in Laravel is done through the PHP PDO facilities
-	| so make sure you have the driver for your particular database of
-	| choice installed on your machine before you begin development.
-	|
 	*/
 	'fetch'       => PDO::FETCH_CLASS,
 
-	'default' => 'sqlite',
+	'default' => 'pgsql',
 
     'connections' => array(
 
-        'sqlite' => array(
-            'driver'   => 'sqlite',
-            'database' => __DIR__.'/../../database/production.sqlite',
+        'pgsql' => array(
+            'driver'   => 'pgsql',
+            'host'     => 'ec2-50-19-233-111.compute-1.amazonaws.com',
+            'database' => 'dbn4ihboauksu1',
+            'username' => 'szezatcksgjhkr',
+            'password' => 'PP3dTrrfobvJChC4wKLXdQ-lUx',
+            'charset'  => 'utf8',
             'prefix'   => '',
+            'schema'   => 'public',
         ),
 
     ),

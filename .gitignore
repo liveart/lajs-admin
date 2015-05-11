@@ -15,5 +15,6 @@ Thumbs.db
 .idea/modules.xml
 .idea/vcs.xml
 .idea/workspace.xml
+.idea/dictionaries/quiller.xml
 .idea/scopes/scope_settings.xml
 _ide_helper.php
