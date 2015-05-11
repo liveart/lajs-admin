@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => 'LiveArtReal--SecretKey',
+	'key' => 'LiveArtRSecretKeyNoOneKnowsAtALL',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
