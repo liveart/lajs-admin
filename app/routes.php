@@ -21,8 +21,8 @@ Route::resource('products', 'ProductsController');
 	Route::resource('locations', 'LocationsController');
 	Route::resource('colorizableElements', 'ColorizableElementsController');
 	Route::resource('pclis', 'ProductColorLocationsController');
-Route::resource('graphicsCategories', 'GraphicscategoriesController');
-	Route::resource('graphicsItems', 'GraphicsitemsController');
+Route::resource('graphicsCategories', 'GraphicsCategoriesController');
+	Route::resource('graphicsItems', 'GraphicsItemsController');
 Route::resource('fonts', 'FontsController');
 Route::resource('colors', 'ColorsController');
 
