@@ -22,18 +22,10 @@ return array(
 	'default' => 'sqlite',
 
 	'connections' => array(
-
-		'mysql' => array(
-			'driver'    => 'mysql',
-			'host'      => 'lajs-admin.mysql.eu1.frbit.com',
-			'database'  => 'lajs-admin',
-			'username'  => 'lajs-admin',
-			'password'  => 'JGtTX+m2Ku5O28fEfiZfWDVC',
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
-		),
-
+		'sqlite' => array(
+<------><------><------>'driver'   => 'sqlite',
+<------><------><------>'database' => __DIR__.'/../database/production.sqlite',
+<------><------><------>'prefix'   => '',
+<------><------>),
 	),
-
 );
