@@ -95,7 +95,7 @@ class ProductsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
+		$input = array_except(Input::all(), array('_method', 'thumbFile', 'thumbUrl'));
 		$validation = Validator::make($input, Product::$rules);
 		if ($validation->passes())
 		{
@@ -105,6 +105,18 @@ class ProductsController extends BaseController {
 			foreach ($chks as $chk) {
 				$product->setAttribute($chk, (Input::has($chk)) ? true : false);
 			}
+			// process uploaded thumbnail file
+			if (Input::hasFile('thumbFile')) {
+				$dest = Config::get('app.product_upload_destination').'/'.$product->id;
+                $pref = Config::get('app.product_upload_path').'/'.$product->id;
+				if (!File::exists($dest)) {
+					File::makeDirectory($dest);
+				}
+				$file = Input::file('thumbFile');
+				$file->move($dest, $file->getClientOriginalName());
+				$product->thumbUrl = asset($pref.'/'.$file->getClientOriginalName());
+			}
+
 			$product->update($input);
 
 			return Redirect::route('products.index');

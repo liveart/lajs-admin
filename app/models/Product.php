@@ -47,6 +47,12 @@ class Product extends Eloquent {
 				foreach ($atts as $att) {
 					$prod->setAttribute($att, ($prod->getAttribute($att)=="on"));
 				}
+				// don't show minDPU if it's not set
+				if (is_null($prod['minDPU'])) {
+					unset($prod['minDPU']);
+				} else {
+					$prod['minDPU'] = intval($prod['minDPU']);
+				}
 				$prod['locations'] = Location::where('product_id','=',$prod->id)->get();
 				foreach ($prod['locations'] as $loc) {
 					$loc->editableArea = $loc->getCoords('editableArea');

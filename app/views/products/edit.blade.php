@@ -15,7 +15,7 @@
     </div>
 </div>
 
-{{ Form::model($product, array('class' => 'form-horizontal', 'method' => 'PATCH', 'route' => array('products.update', $product->id))) }}
+{{ Form::model($product, array('class' => 'form-horizontal', 'method' => 'PATCH', 'files' => true, 'route' => array('products.update', $product->id))) }}
 
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist" id="tabs">
@@ -48,6 +48,7 @@
             {{ Form::label('thumbUrl', 'Thumb URL:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
               {{ Form::text('thumbUrl', Input::old('thumbUrl'), array('class'=>'form-control', 'placeholder'=>'Thumbnail URL')) }}
+              {{ Form::file('thumbFile') }}
             </div>
         </div>
         <div class="form-group">
