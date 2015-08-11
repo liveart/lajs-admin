@@ -15,7 +15,7 @@
     </div>
 </div>
 
-{{ Form::model($location, array('class' => 'form-horizontal', 'method' => 'PATCH', 'route' => array('locations.update', $location->id))) }}
+{{ Form::model($location, array('class' => 'form-horizontal', 'method' => 'PATCH', 'files' => true, 'route' => array('locations.update', $location->id))) }}
         <div class="form-group">
             {{ Form::label('name', 'Name:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
@@ -25,16 +25,56 @@
         <div class="form-group">
             {{ Form::label('image', 'Image URL:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
-              {{ Form::text('image', Input::old('image'), array('class'=>'form-control', 'placeholder'=>'Image URL')) }}
+                {{ Form::text('image', Input::old('image'), array('class'=>'form-control', 'placeholder'=>'Image URL')) }}
+                {{ Form::file('imageFile') }}
             </div>
         </div>
         <div class="form-group">
             {{ Form::label('editableArea', 'Editable Area:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10 form-inline">
-                {{ Form::text('left', $left, array('class'=>'form-control', 'placeholder'=>'Left')) }}
-                {{ Form::text('top', $top, array('class'=>'form-control', 'placeholder'=>'Top')) }}
-                {{ Form::text('right', $right, array('class'=>'form-control', 'placeholder'=>'Right')) }}
-                {{ Form::text('bottom', $bottom, array('class'=>'form-control', 'placeholder'=>'Bottom')) }}
+                {{ Form::number('left', $left, array('id'=>'left', 'class'=>'form-control', 'placeholder'=>'Left')) }}
+                {{ Form::number('top', $top, array('id'=>'top', 'class'=>'form-control', 'placeholder'=>'Top')) }}
+                {{ Form::number('right', $right, array('id'=>'right', 'class'=>'form-control', 'placeholder'=>'Right')) }}
+                {{ Form::number('bottom', $bottom, array('id'=>'bottom', 'class'=>'form-control', 'placeholder'=>'Bottom')) }}
+                <button class="btn" data-toggle="modal" data-target="#area-modal" type="button">Select Editable Area</button>
+                <div class="modal fade" id="area-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="close" data-dismiss="modal" type="button" aria-hidden="true">×</button>
+                                <h4 class="modal-title" id="bootstrap-modal-label">Select Editable Area</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="area-editor">
+                                    <img src="{{ $location->image }}" alt="Location Image">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    var $image = $('#area-editor > img'),
+                            cropBoxData,
+                            canvasData;
+
+                    $('#area-modal').on('shown.bs.modal', function () {
+                        $image.cropper({
+                            autoCropArea: 0.5,
+                            zoomable: false,
+                            crop: function(data) {
+                                $("#left").val(Math.round(data.x));
+                                $("#top").val(Math.round(data.y));
+                                $("#bottom").val(Math.round(data.height));
+                                $("#right").val(Math.round(data.width));
+                            }
+                        });
+                    }).on('hidden.bs.modal', function () {
+                        $image.cropper('destroy');
+                    });
+                </script>
             </div>
         </div>
         <div class="form-group">

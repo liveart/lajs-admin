@@ -4,15 +4,17 @@
     <title>{{{ $page_title or 'Admin'}}} - LiveArt</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/0.9.3/cropper.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/0.9.3/cropper.min.js"></script>
     <style>
         body { padding-top: 2px; }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="/">LiveArt Admin</a>
@@ -27,8 +29,8 @@
         <li>{{ link_to_route('colors.index', 'Colors') }}</li>
         <li>{{ link_to('/import', 'Import from JSON') }}</li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
 
 <div class="container">

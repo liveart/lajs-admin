@@ -15,4 +15,12 @@ return array(
 
 	'debug' => true,
 
+    /*
+     * Path and prefix for uploaded product images
+     */
+
+    'product_upload_path' => 'liveart/products',
+    'product_upload_destination' => public_path().'/liveart/products'
+
+
 );

@@ -15,7 +15,7 @@
     </div>
 </div>
 
-{{ Form::open(array('route' => 'locations.store', 'class' => 'form-horizontal')) }}
+{{ Form::open(array('route' => 'locations.store', 'files' => true, 'class' => 'form-horizontal')) }}
         {{ Form::hidden('product_id', $product_id) }}
         <div class="form-group">
             {{ Form::label('name', 'Name:', array('class'=>'col-md-2 control-label')) }}
@@ -26,7 +26,8 @@
         <div class="form-group">
             {{ Form::label('image', 'Image URL:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
-              {{ Form::text('image', Input::old('image'), array('class'=>'form-control', 'placeholder'=>'Image URL')) }}
+                {{ Form::text('image', Input::old('image'), array('class'=>'form-control', 'placeholder'=>'Image URL')) }}
+                {{ Form::file('imageFile') }}
             </div>
         </div>
         <div class="form-group">

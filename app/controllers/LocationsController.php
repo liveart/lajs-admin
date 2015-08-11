@@ -23,14 +23,26 @@ class LocationsController extends BaseController {
 
 		if ($validation->passes())
 		{
-			// TODO maybe reduce all of these
 			$this->location = new Location;
 			$this->location->setCoords(array(Input::get('left'),Input::get('top'),Input::get('right'),Input::get('bottom')),'editableArea');
 			$this->location->setCoords(array(Input::get('width'),Input::get('height')),'editableAreaUnits');
 			$this->location->setCoords(array(Input::get('cr_left'),Input::get('cr_top'),Input::get('cr_right'),Input::get('cr_bottom')),'clipRect');
 			$this->location->product_id = Input::get('product_id');
 			$this->location->name = Input::get('name');
-			$this->location->image = Input::get('image');
+			// process uploaded image file
+			if (Input::hasFile('imageFile')) {
+				$suffix = '/'.Input::get('product_id').'/'.Input::get('name');
+				$dest = Config::get('app.product_upload_destination').$suffix;
+				$pref = Config::get('app.product_upload_path').$suffix;
+				if (!File::exists($dest)) {
+					File::makeDirectory($dest);
+				}
+				$file = Input::file('imageFile');
+				$file->move($dest, $file->getClientOriginalName());
+				$this->location->image = asset($pref.'/'.$file->getClientOriginalName());
+			} else {
+				$this->location->image = Input::get('image');
+			}
 			$this->location->save();
 			return Redirect::route('products.edit', $this->location->product->id);
 		}
@@ -78,8 +90,22 @@ class LocationsController extends BaseController {
 			$loc->setCoords(array(Input::get('left'),Input::get('top'),Input::get('right'),Input::get('bottom')),'editableArea');
 			$loc->setCoords(array(Input::get('width'),Input::get('height')),'editableAreaUnits');
 			$loc->setCoords(array(Input::get('cr_left'),Input::get('cr_top'),Input::get('cr_right'),Input::get('cr_bottom')),'clipRect');
+            // process uploaded image file
+            if (Input::hasFile('imageFile')) {
+                $suffix = '/'.$loc->product->id.'/'.Input::get('name');
+                $dest = Config::get('app.product_upload_destination').$suffix;
+                $pref = Config::get('app.product_upload_path').$suffix;
+                if (!File::exists($dest)) {
+                    File::makeDirectory($dest);
+                }
+                $file = Input::file('imageFile');
+                $file->move($dest, $file->getClientOriginalName());
+                $this->location->image = asset($pref.'/'.$file->getClientOriginalName());
+            } else {
+                $this->location->image = Input::get('image');
+            }
 			// extract all custom input
-			$input = array_except($input, array('locationName','top','left','bottom','right','width','height','cr_top','cr_left','cr_bottom','cr_right'));
+			$input = array_except($input, array('locationName','top','left','bottom','right','width','height','cr_top','cr_left','cr_bottom','cr_right','imageFile'));
 			$loc->update($input);
 			// redirect back to parent product
 			return Redirect::route('products.edit', $loc->product->id)
