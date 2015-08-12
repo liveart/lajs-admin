@@ -25,7 +25,7 @@ $app = new Illuminate\Foundation\Application;
 */
 
 $env = $app->detectEnvironment(array(
-    'local' => array('homestead','nexus'),
+    'local' => array('homestead','nexus.local','nexus'),
     'production' => array('*.net','*.com')
 ));
 

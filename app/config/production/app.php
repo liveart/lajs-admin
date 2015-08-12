@@ -22,5 +22,4 @@ return array(
     'product_upload_path' => 'liveart/products',
     'product_upload_destination' => public_path().'/liveart/products'
 
-
 );

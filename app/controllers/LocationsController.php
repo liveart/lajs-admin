@@ -35,7 +35,7 @@ class LocationsController extends BaseController {
 				$dest = Config::get('app.product_upload_destination').$suffix;
 				$pref = Config::get('app.product_upload_path').$suffix;
 				if (!File::exists($dest)) {
-					File::makeDirectory($dest);
+					File::makeDirectory($dest, 0775, true);
 				}
 				$file = Input::file('imageFile');
 				$file->move($dest, $file->getClientOriginalName());
@@ -85,6 +85,7 @@ class LocationsController extends BaseController {
 	{
 		$input = array_except(Input::all(), '_method');
 		$validation = Validator::make($input, Location::$rules);
+        $fields_to_except = array('locationName', 'top', 'left', 'bottom', 'right', 'width', 'height', 'cr_top', 'cr_left', 'cr_bottom', 'cr_right', 'imageFile');
 		if ($validation->passes()) {
 			$loc = $this->location->find($id);
 			$loc->setCoords(array(Input::get('left'),Input::get('top'),Input::get('right'),Input::get('bottom')),'editableArea');
@@ -96,16 +97,17 @@ class LocationsController extends BaseController {
                 $dest = Config::get('app.product_upload_destination').$suffix;
                 $pref = Config::get('app.product_upload_path').$suffix;
                 if (!File::exists($dest)) {
-                    File::makeDirectory($dest);
+                    File::makeDirectory($dest, 0775, true);
                 }
                 $file = Input::file('imageFile');
                 $file->move($dest, $file->getClientOriginalName());
-                $this->location->image = asset($pref.'/'.$file->getClientOriginalName());
-            } else {
-                $this->location->image = Input::get('image');
+                $loc->image = asset($pref.'/'.$file->getClientOriginalName());
+
+                // ignore the URL field if file is uploaded
+                array_push($fields_to_except,'image');
             }
 			// extract all custom input
-			$input = array_except($input, array('locationName','top','left','bottom','right','width','height','cr_top','cr_left','cr_bottom','cr_right','imageFile'));
+            $input = array_except($input, $fields_to_except);
 			$loc->update($input);
 			// redirect back to parent product
 			return Redirect::route('products.edit', $loc->product->id)

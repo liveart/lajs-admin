@@ -57,18 +57,27 @@
                 </div>
                 <script>
                     var $image = $('#area-editor > img'),
-                            cropBoxData,
-                            canvasData;
+                        cropBoxData = {
+                            left: parseInt($("#left").val()),
+                            top: parseInt($("#top").val()),
+                            width: parseInt($("#right").val()),
+                            height: parseInt($("#bottom").val())
+                        };
+                    // adjust the coords for cropbox properly
+                    cropBoxData.width -= cropBoxData.left;
+                    cropBoxData.height -= cropBoxData.top;
 
                     $('#area-modal').on('shown.bs.modal', function () {
                         $image.cropper({
-                            autoCropArea: 0.5,
                             zoomable: false,
+                            built: function() {
+                                $image.cropper('setCropBoxData', cropBoxData);
+                            },
                             crop: function(data) {
                                 $("#left").val(Math.round(data.x));
                                 $("#top").val(Math.round(data.y));
-                                $("#bottom").val(Math.round(data.height));
-                                $("#right").val(Math.round(data.width));
+                                $("#bottom").val(Math.round(data.height + data.y));
+                                $("#right").val(Math.round(data.width + data.x));
                             }
                         });
                     }).on('hidden.bs.modal', function () {
