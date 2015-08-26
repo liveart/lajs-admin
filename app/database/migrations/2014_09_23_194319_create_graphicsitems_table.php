@@ -16,11 +16,11 @@ class CreateGraphicsitemsTable extends Migration {
 			$table->increments('id');
 			$table->integer('category_id')->unsigned();
 			$table->string('name');
-			$table->string('description');
+			$table->string('description')->nullable();
             $table->boolean('colorize')->default(false);
-			$table->integer('colors');
-			$table->string('thumb');
-			$table->string('image');
+			$table->integer('colors')->default(1);
+			$table->string('thumb')->nullable();
+			$table->string('image')->nullable();
 		});
 	}
 

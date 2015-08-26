@@ -10,6 +10,7 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
+				<th>Thumb</th>
 				<th>Name</th>
 				<th>&nbsp;</th>
 			</tr>
@@ -18,12 +19,13 @@
 		<tbody>
 			@foreach ($graphicsCategories as $graphicsCategory)
 				<tr>
-					<td>{{{ $graphicsCategory->name }}}</td>
+					<td>{{ HTML::image($graphicsCategory->thumb->url()) }}</td>
+                    <td>{{{ $graphicsCategory->name }}}</td>
                     <td>
-                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('graphicsCategories.destroy', $graphicsCategory->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
                         {{ link_to_route('graphicsCategories.edit', 'Edit', array($graphicsCategory->id), array('class' => 'btn btn-info')) }}
+                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('graphicsCategories.destroy', $graphicsCategory->id))) }}
+                            {{ Form::submit('Delete', array('class' => 'btn btn-danger', 'onclick' => 'return confirm("Are you sure?");')) }}
+                        {{ Form::close() }}
                     </td>
 				</tr>
 			@endforeach

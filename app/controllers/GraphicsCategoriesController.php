@@ -106,7 +106,7 @@ class GraphicsCategoriesController extends BaseController {
 			$graphicsCategory = $this->graphicsCategory->find($id);
 			$graphicsCategory->update($input);
 
-			return Redirect::route('graphicsCategories.show', $id);
+            return Redirect::route('graphicsCategories.index');
 		}
 
 		return Redirect::route('graphicsCategories.edit', $id)
