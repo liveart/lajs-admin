@@ -24,6 +24,20 @@
               {{ Form::text('name', Input::old('name'), array('class'=>'form-control', 'placeholder'=>'Name')) }}
             </div>
         </div>
+
+        <?php
+            $cats = array(0 => 'None');
+            foreach (GraphicsCategory::get(array('id', 'name')) as $cat) {
+                $cats[$cat->id] = $cat->name;
+            }
+        ?>
+        <div class="form-group">
+            {{ Form::label('parent', 'Parent category:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+                {{ Form::select('parent', $cats, Input::old('parent'), array('class'=>'form-control')) }}
+            </div>
+        </div>
+
         <div class="form-group">
             {{ Form::label('thumb', 'Thumbnail Image:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">

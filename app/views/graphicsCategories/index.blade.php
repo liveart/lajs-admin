@@ -12,6 +12,7 @@
 			<tr>
 				<th>Thumb</th>
 				<th>Name</th>
+				<th>Parent Category</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -21,6 +22,13 @@
 				<tr>
 					<td>{{ HTML::image($graphicsCategory->thumb->url()) }}</td>
                     <td>{{{ $graphicsCategory->name }}}</td>
+                    <td>
+                        @if (is_a($graphicsCategory->parentCategory, 'GraphicsCategory'))
+                            {{{ $graphicsCategory->parentCategory->name }}}
+                        @else
+                            None
+                        @endif
+                    </td>
                     <td>
                         {{ link_to_route('graphicsCategories.edit', 'Edit', array($graphicsCategory->id), array('class' => 'btn btn-info')) }}
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('graphicsCategories.destroy', $graphicsCategory->id))) }}
@@ -32,7 +40,7 @@
 		</tbody>
 	</table>
 @else
-	There are no graphicsCategories
+	There are no artwork categories
 @endif
 
 @stop

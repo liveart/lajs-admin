@@ -7,7 +7,7 @@ class GraphicsCategory extends Eloquent implements StaplerableInterface {
     use EloquentTrait;
 
 	protected $guarded = array();
-	protected $fillable = array('name', 'thumb');
+	protected $fillable = array('name', 'thumb', 'parent');
     protected $table = 'graphicsCategories';
 
 	public $timestamps = false;
@@ -24,6 +24,14 @@ class GraphicsCategory extends Eloquent implements StaplerableInterface {
             'default_url' => 'assets/images/noimage.png'
         ]);
         parent::__construct($attributes);
+    }
+
+    public function parentCategory() {
+        return $this->belongsTo('GraphicsCategory','parent');
+    }
+
+    public function categories() {
+        return $this->hasMany('GraphicsCategory', 'parent');
     }
 
 }

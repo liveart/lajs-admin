@@ -39,35 +39,52 @@ class GraphicsItem extends Eloquent implements StaplerableInterface {
 
 	public function getJSON() {
 		$json = array();
-		$cats = GraphicsCategory::orderBy('name','asc')->get();
+		$cats = GraphicsCategory::where('parent','=','0')->orderBy('name','asc')->get();
 		foreach ($cats as $cat) {
-            $cat['thumbURL'] = $cat->thumb->url();
-			$cat['graphicsList'] = GraphicsItem::where('category_id','=',$cat->id)->get();
-			foreach ($cat['graphicsList'] as $g) {
-				$g['colors'] = strval($g['colors']);
-                $g['categoryId'] = $g['category_id'];
-                unset($g['category_id']);
-                $g['colorize'] = ($g['colorize'] == 'on') ? true : false;
-				$g['multicolor'] = count($g->colorizables) > 0;
-                $g['colorizableElements'] = $g->colorizables;
-                foreach ($g['colorizableElements'] as $ce) {
-                    $ce->colors; // lazy fetch colors if present
-                    $ce['id'] = $ce['css_id'];
-                }
-                // TODO add colors list if present, from rel-096
-			}
+            $this->buildCategory($cat);
 		}
         $arr = $cats->toArray();
         // now real cleaning out
         foreach ($arr as &$el) {
             // map to properly named attributes and remove junk
             $el['thumb'] = $el['thumbURL'];
-            $el = array_only($el, array('id', 'name', 'thumb', 'graphicsList'));
+            $el = array_only($el, array('id', 'categories', 'name', 'thumb', 'graphicsList'));
         }
 
         $json['graphicsCategoriesList'] = $arr;
 
         return $json;
 	}
+
+    /**
+     * @param $cat
+     */
+    private function buildCategory($cat)
+    {
+        $temp = array();
+        // checking for children
+        foreach ($cat->categories as $child) {
+            $this->buildCategory($child);
+            array_push($temp, $child->toArray());
+        }
+        if (count($temp) > 0) {
+            $cat['categories'] = $temp;
+        }
+        $cat['thumbURL'] = $cat->thumb->url();
+        $cat['graphicsList'] = GraphicsItem::where('category_id', '=', $cat->id)->get();
+        foreach ($cat['graphicsList'] as $g) {
+            $g['colors'] = strval($g['colors']);
+            $g['categoryId'] = $g['category_id'];
+            unset($g['category_id']);
+            $g['colorize'] = ($g['colorize'] == 'on') ? true : false;
+            $g['multicolor'] = count($g->colorizables) > 0;
+            $g['colorizableElements'] = $g->colorizables;
+            foreach ($g['colorizableElements'] as $ce) {
+                $ce->colors; // lazy fetch colors if present
+                $ce['id'] = $ce['css_id'];
+            }
+            // TODO add colors list if present, from rel-096
+        }
+    }
 
 }
