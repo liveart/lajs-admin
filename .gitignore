@@ -1,4 +1,5 @@
 /bootstrap/compiled.php
+/public/system
 /vendor
 composer.phar
 .env.*.php

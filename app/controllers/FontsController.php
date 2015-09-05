@@ -133,15 +133,11 @@ class FontsController extends BaseController {
 	}
 
 	public function toJSON() {
-		$json = array();
-		$json['fonts'] = $this->font->orderBy('name','asc')->get();
-		foreach ($json['fonts'] as $fn) {
-			// get the right data format
-			$fn->boldAllowed = ($fn->boldAllowed === "on");
-			$fn->italicAllowed = ($fn->italicAllowed ==="on");
-			$fn->ascent = intval($fn->ascent);
-		}
-		return $json;
+		return $this->font->getJSON();
 	}
+
+    public function getCSS() {
+        return $this->font->getCSS();
+    }
 
 }

@@ -16,7 +16,7 @@
         "includeProductInDesign": true,
         "includePrintingAreaInDesign": true,
 		"includeMaskInDesign": true,
-        "fontsCSSUrl": "http://localhost/LAJS/fonts/fonts.css",
+        "fontsCSSUrl": "http://localhost:8000/api/fontscss",
         "zoomEnabled": true,
         "minZoom": 50,
         "maxZoom": 150,

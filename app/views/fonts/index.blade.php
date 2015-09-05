@@ -12,8 +12,6 @@
 			<tr>
 				<th>Name</th>
 				<th>FontFamily</th>
-				<th>Ascent</th>
-				<th>Vector</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -31,13 +29,11 @@
 						@endif
 					</td>
 					<td>{{{ $font->fontFamily }}}</td>
-					<td>{{{ $font->ascent }}}</td>
-					<td>{{{ $font->vector }}}</td>
                     <td>
-                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('fonts.destroy', $font->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+						{{ link_to_route('fonts.edit', 'Edit', array($font->id), array('class' => 'btn btn-info')) }}
+						{{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('fonts.destroy', $font->id))) }}
+                            {{ Form::submit('Delete', array('class' => 'btn btn-danger', 'onclick' => 'javascript:confirm("Are you sure?");')) }}
                         {{ Form::close() }}
-                        {{ link_to_route('fonts.edit', 'Edit', array($font->id), array('class' => 'btn btn-info')) }}
                     </td>
 				</tr>
 			@endforeach
