@@ -16,20 +16,28 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::resource('products', 'ProductsController');
-	Route::resource('categories', 'CategoriesController');
-	Route::resource('locations', 'LocationsController');
-	Route::resource('colorizableElements', 'ColorizableElementsController');
-	Route::resource('pclis', 'ProductColorLocationsController');
-Route::resource('graphicsCategories', 'GraphicsCategoriesController');
-	Route::resource('graphicsItems', 'GraphicsItemsController');
-Route::resource('fonts', 'FontsController');
-Route::resource('colors', 'ColorsController');
+// Route to show the login form
+Route::get('login', 'HomeController@showLogin');
+Route::post('login', 'HomeController@doLogin');
+Route::get('logout', 'HomeController@doLogout');
 
-// Import
-Route::get('import','ImportController@showIndex');
-Route::post('import','ImportController@importFonts');
-Route::post('import','ImportController@importGraphics');
+Route::group(array('before' => 'auth'), function() {
+    // All resources go here
+    Route::resource('products', 'ProductsController');
+    Route::resource('categories', 'CategoriesController');
+    Route::resource('locations', 'LocationsController');
+    Route::resource('colorizableElements', 'ColorizableElementsController');
+    Route::resource('pclis', 'ProductColorLocationsController');
+    Route::resource('graphicsCategories', 'GraphicsCategoriesController');
+    Route::resource('graphicsItems', 'GraphicsItemsController');
+    Route::resource('fonts', 'FontsController');
+    Route::resource('colors', 'ColorsController');
+
+    // Import
+    Route::get('import','ImportController@showIndex');
+    Route::post('import','ImportController@importFonts');
+    Route::post('import','ImportController@importGraphics');
+});
 
 // JSON Routes
 Route::get('/api/products', 'ProductsController@toJSON');

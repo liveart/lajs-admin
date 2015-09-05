@@ -13,6 +13,7 @@
 </head>
 <body style="padding-top: 70px;">
 
+@if (Auth::check())
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -38,11 +39,16 @@
                 </li>
                 <li>{{ link_to_route('fonts.index', 'Fonts') }}</li>
                 <li>{{ link_to_route('colors.index', 'Decoration Colors') }}</li>
-                <li>{{ link_to('/import', 'Import') }}</li>
+                <!-- <li>{{ link_to('/import', 'Import') }}</li> -->
             </ul>
+            <div class="navbar-text pull-right">
+                <span id="loginInfo"><span>Logged in as {{ Auth::user()->name }}</span></span>
+                <a class="btn btn-primary btn-xs" href="{{ URL::to('logout') }}">Logout</a>
+            </div>
         </div>
     </div>
 </nav>
+@endif
 
 <div class="container">
     @if (Session::has('message'))
