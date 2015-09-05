@@ -47,14 +47,21 @@ class GraphicsItem extends Eloquent implements StaplerableInterface {
         // now real cleaning out
         foreach ($arr as &$el) {
             // map to properly named attributes and remove junk
-            $el['thumb'] = $el['thumbURL'];
-            $el = array_only($el, array('id', 'categories', 'name', 'thumb', 'graphicsList'));
+            $this->cleanCategory($el);
         }
 
         $json['graphicsCategoriesList'] = $arr;
 
         return $json;
 	}
+
+    private function cleanCategory(&$cat) {
+        $cat['thumb'] = $cat['thumbURL'];
+        $cat = array_only($cat, array('id', 'categories', 'name', 'thumb', 'graphicsList'));
+        foreach ($cat['categories'] as &$c) {
+            $this->cleanCategory($c);
+        }
+    }
 
     /**
      * @param $cat
@@ -70,7 +77,7 @@ class GraphicsItem extends Eloquent implements StaplerableInterface {
         if (count($temp) > 0) {
             $cat['categories'] = $temp;
         }
-        $cat['thumbURL'] = $cat->thumb->url();
+        $cat['thumbURL'] = URL::to($cat->thumb->url());
         $cat['graphicsList'] = GraphicsItem::where('category_id', '=', $cat->id)->get();
         foreach ($cat['graphicsList'] as $g) {
             $g['colors'] = strval($g['colors']);
