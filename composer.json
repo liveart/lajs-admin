@@ -6,7 +6,9 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"dollar/generators": "dev-master",
-	  	"barryvdh/laravel-ide-helper": "~1.11"
+	  	"barryvdh/laravel-ide-helper": "~1.11",
+        "codesleeve/laravel-stapler": "1.0.*",
+        "doctrine/dbal": "2.5.1"
 	},
 	"autoload": {
 		"classmap": [

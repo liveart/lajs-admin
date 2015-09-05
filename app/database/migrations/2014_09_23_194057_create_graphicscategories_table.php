@@ -15,9 +15,9 @@ class CreateGraphicscategoriesTable extends Migration {
 		Schema::create('graphicsCategories', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
+            $table->integer('parent')->unsigned()->nullable();
 		});
 	}
-
 
 	/**
 	 * Reverse the migrations.

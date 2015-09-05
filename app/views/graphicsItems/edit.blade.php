@@ -14,7 +14,7 @@
     </div>
 </div>
 
-{{ Form::model($graphicsItem, array('class' => 'form-horizontal', 'method' => 'PATCH', 'route' => array('graphicsItems.update', $graphicsItem->id))) }}
+{{ Form::model($graphicsItem, array('class' => 'form-horizontal', 'method' => 'PATCH', 'files' => true, 'route' => array('graphicsItems.update', $graphicsItem->id))) }}
 
         <div class="form-group">
             {{ Form::label('name', 'Name:', array('class'=>'col-md-2 control-label')) }}
@@ -55,18 +55,25 @@
         </div>
 
         <div class="form-group">
-            {{ Form::label('thumb', 'Thumb:', array('class'=>'col-md-2 control-label')) }}
+            {{ Form::label('thumbFile', 'Thumbnail Image:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
-              {{ Form::text('thumb', Input::old('thumb'), array('class'=>'form-control', 'placeholder'=>'Thumb')) }}
+                @if ($graphicsItem->thumbFile->originalFilename())
+                    {{ HTML::image($graphicsItem->thumbFile->url()) }}
+                @endif
+                {{ Form::file('thumbFile') }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('image', 'Image:', array('class'=>'col-md-2 control-label')) }}
+            {{ Form::label('imageFile', 'Image:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
-              {{ Form::text('image', Input::old('image'), array('class'=>'form-control', 'placeholder'=>'Image')) }}
+                @if ($graphicsItem->imageFile->originalFilename())
+                    {{ HTML::image($graphicsItem->imageFile->url()) }}
+                @endif
+                {{ Form::file('imageFile') }}
             </div>
         </div>
+
 
         <div class="form-group">
             {{ Form::label('colorizableElements', 'Colorizable Elements:', array('class'=>'col-md-2 control-label')) }}
@@ -74,7 +81,7 @@
                 <p>{{ link_to_route('colorizableElements.create', 'New Colorizable Element', 
                             array('id'=>$graphicsItem->id, 'type'=>'GraphicsItem'), 
                             array('class' => 'btn btn-sm btn-primary')) }}</p>
-                @if ($graphicsItem->colorizableElements->count())
+                @if ($graphicsItem->colorizableElements)
                     <table class="table table-striped">
                         <thead>
                             <tr>

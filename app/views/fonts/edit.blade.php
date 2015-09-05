@@ -5,18 +5,10 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
         <h1>Edit Font</h1>
-
-        @if ($errors->any())
-        	<div class="alert alert-danger">
-        	    <ul>
-                    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-                </ul>
-        	</div>
-        @endif
     </div>
 </div>
 
-{{ Form::model($font, array('class' => 'form-horizontal', 'method' => 'PATCH', 'route' => array('fonts.update', $font->id))) }}
+{{ Form::model($font, array('class' => 'form-horizontal', 'files' => true, 'method' => 'PATCH', 'route' => array('fonts.update', $font->id))) }}
 
         <div class="form-group">
             {{ Form::label('name', 'Name:', array('class'=>'col-md-2 control-label')) }}
@@ -33,18 +25,48 @@
         </div>
 
         <div class="form-group">
+            {{ Form::label('regular', 'Regular:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+                {{ Form::file('regular') }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('bold', 'Bold:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+                {{ Form::file('bold') }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('italic', 'Italic:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+                {{ Form::file('italic') }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('bold_italic', 'Bold Italic:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+                {{ Form::file('bold_italic') }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('vector_font', 'Vector Font:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+                {{ Form::file('vector_font') }}
+            </div>
+        </div>
+
+
+        <div class="form-group">
             {{ Form::label('ascent', 'Ascent:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
               {{ Form::input('number', 'ascent', Input::old('ascent'), array('class'=>'form-control')) }}
             </div>
         </div>
 
-        <div class="form-group">
-            {{ Form::label('vector', 'Vector:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('vector', Input::old('vector'), array('class'=>'form-control', 'placeholder'=>'Vector')) }}
-            </div>
-        </div>
         <div class="form-group">
             {{ Form::label('options', 'Options:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">

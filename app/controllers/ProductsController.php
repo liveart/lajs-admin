@@ -110,7 +110,7 @@ class ProductsController extends BaseController {
 				$dest = Config::get('app.product_upload_destination').'/'.$product->id;
                 $pref = Config::get('app.product_upload_path').'/'.$product->id;
 				if (!File::exists($dest)) {
-					File::makeDirectory($dest);
+					File::makeDirectory($dest, 0755, true);
 				}
 				$file = Input::file('thumbFile');
 				$file->move($dest, $file->getClientOriginalName());

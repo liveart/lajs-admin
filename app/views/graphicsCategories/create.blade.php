@@ -16,7 +16,7 @@
     </div>
 </div>
 
-{{ Form::open(array('route' => 'graphicsCategories.store', 'class' => 'form-horizontal')) }}
+{{ Form::open(array('route' => 'graphicsCategories.store', 'class' => 'form-horizontal', 'files' => true)) }}
 
         <div class="form-group">
             {{ Form::label('name', 'Name:', array('class'=>'col-md-2 control-label')) }}
@@ -25,6 +25,25 @@
             </div>
         </div>
 
+        <?php
+            $cats = array(0 => 'None');
+            foreach (GraphicsCategory::get(array('id', 'name')) as $cat) {
+                $cats[$cat->id] = $cat->name;
+            }
+        ?>
+        <div class="form-group">
+            {{ Form::label('parent', 'Parent category:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+                {{ Form::select('parent', $cats, Input::old('parent'), array('class'=>'form-control')) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('thumb', 'Thumbnail Image:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-10">
+                {{ Form::file('thumb') }}
+            </div>
+        </div>
 
 <div class="form-group">
     <label class="col-sm-2 control-label">&nbsp;</label>

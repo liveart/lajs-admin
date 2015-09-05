@@ -9,7 +9,7 @@ return array(
 	*/
 	'fetch'       => PDO::FETCH_CLASS,
 
-	'default' => 'pgsql',
+	'default' => 'mysql',
 
     'connections' => array(
 
@@ -22,6 +22,17 @@ return array(
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
+        ),
+
+        'mysql' => array(
+            'driver'    => 'mysql',
+            'host'      => 'localhost',
+            'database'  => 'signlayo_clipart',
+            'username'  => 'signlayo_clipart',
+            'password'  => '9ud@fSD5odyP',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
         ),
 
     ),

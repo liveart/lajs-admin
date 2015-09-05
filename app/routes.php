@@ -36,3 +36,6 @@ Route::get('/api/products', 'ProductsController@toJSON');
 Route::get('/api/graphics', 'GraphicsItemsController@toJSON');
 Route::get('/api/fonts', 'FontsController@toJSON');
 Route::get('/api/colors', 'ColorsController@toJSON');
+
+// CSS Routes
+Route::get('api/fontscss', 'FontsController@getCSS');

@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>All Graphics Items</h1>
+<h1>All Graphic Items</h1>
 
 <p>{{ link_to_route('graphicsItems.create', 'Add New Graphics', null, array('class' => 'btn btn-lg btn-success')) }}</p>
 
@@ -10,7 +10,8 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>Name</th>
+                <th>Thumb</th>
+                <th>Name</th>
                 <th>Category</th>
 				<th>Description</th>
 				<th>Colors</th>
@@ -21,6 +22,7 @@
 		<tbody>
 			@foreach ($graphicsItems as $graphicsItem)
 				<tr>
+					<td>{{ HTML::image($graphicsItem->thumbFile->url()) }}</td>
 					<td>{{{ $graphicsItem->name }}}</td>
                     <td>{{{ $graphicsItem->category->name }}}</td>
 					<td>{{{ $graphicsItem->description }}}</td>
@@ -36,7 +38,7 @@
 		</tbody>
 	</table>
 @else
-	There are no graphicsItems
+	There is no artwork in the gallery.
 @endif
 
 @stop

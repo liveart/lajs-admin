@@ -16,7 +16,7 @@
     </div>
 </div>
 
-{{ Form::open(array('route' => 'graphicsItems.store', 'class' => 'form-horizontal')) }}
+{{ Form::open(array('route' => 'graphicsItems.store', 'files' => true, 'class' => 'form-horizontal')) }}
 
         <div class="form-group">
             {{ Form::label('name', 'Name:', array('class'=>'col-md-2 control-label')) }}
@@ -59,19 +59,18 @@
         </div>
 
         <div class="form-group">
-            {{ Form::label('thumb', 'Thumb:', array('class'=>'col-md-2 control-label')) }}
+            {{ Form::label('thumbFile', 'Thumbnail Image:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
-              {{ Form::text('thumb', Input::old('thumb'), array('class'=>'form-control', 'placeholder'=>'Thumb')) }}
+                {{ Form::file('thumbFile') }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('image', 'Image:', array('class'=>'col-md-2 control-label')) }}
+            {{ Form::label('imageFile', 'Image:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
-              {{ Form::text('image', Input::old('image'), array('class'=>'form-control', 'placeholder'=>'Image')) }}
+                {{ Form::file('imageFile') }}
             </div>
         </div>
-
 
 <div class="form-group">
     <label class="col-sm-2 control-label">&nbsp;</label>
