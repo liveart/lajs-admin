@@ -21,7 +21,9 @@ Route::get('login', 'HomeController@showLogin');
 Route::post('login', 'HomeController@doLogin');
 Route::get('logout', 'HomeController@doLogout');
 
+// Routes that require login
 Route::group(array('before' => 'auth'), function() {
+
     // All resources go here
     Route::resource('products', 'ProductsController');
     Route::resource('categories', 'CategoriesController');
@@ -37,6 +39,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('import','ImportController@showIndex');
     Route::post('import','ImportController@importFonts');
     Route::post('import','ImportController@importGraphics');
+
 });
 
 // JSON Routes
