@@ -37,10 +37,10 @@
 					<td>{{{ $product->category->name }}}</td>
 					<td>{{{ $product->description }}}</td>
                     <td>
-                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('products.destroy', $product->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
                         {{ link_to_route('products.edit', 'Edit', array($product->id), array('class' => 'btn btn-info')) }}
+						{{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('products.destroy', $product->id))) }}
+							{{ Form::submit('Delete', array('class' => 'btn btn-danger', 'onclick' => 'javascript:confirm("Are you sure?");')) }}
+						{{ Form::close() }}
                     </td>
 				</tr>
 			@endforeach

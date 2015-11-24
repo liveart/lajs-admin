@@ -22,7 +22,7 @@
 		<tbody>
 			@foreach ($graphicsItems as $graphicsItem)
 				<tr>
-					<td>{{ HTML::image($graphicsItem->thumbFile->url()) }}</td>
+					<td>{{ HTML::image($graphicsItem->thumbFile->url(), null, array('style' => 'width: 100px;')) }}</td>
 					<td>{{{ $graphicsItem->name }}}</td>
                     <td>{{{ $graphicsItem->category->name }}}</td>
 					<td>{{{ $graphicsItem->description }}}</td>

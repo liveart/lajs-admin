@@ -51,8 +51,8 @@ class ColorizableElementsController extends BaseController {
 		if ($validation->passes())
 		{
 			// TODO redirect back to originated page
-			$this->colorizableElement->create($input);
-			return Redirect::route('colorizableElements.index');
+			$el = $this->colorizableElement->create($input);
+			return $this->redirect($el->of_type, $el->of_id);
 		}
 		return Redirect::route('colorizableElements.create')
 			->withInput()
@@ -89,19 +89,6 @@ class ColorizableElementsController extends BaseController {
 	}
 
 	/**
-	 * Add color to colorizable element
-	 *
-	 */
-	public function attachColor($id, $color_id) {
-		$el = $this->colorizableElement->find($id);
-		$color = Color::find($color_id);
-		$el->colors()->save($color);
-		return Redirect::route('colorizableElements.edit', $id)
-			->withInput()
-			->with('message', 'Color was added.');
-	}
-
-	/**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  int  $id
@@ -115,26 +102,13 @@ class ColorizableElementsController extends BaseController {
 		if ($validation->passes())
 		{
 			$colorizableElement = $this->colorizableElement->find($id);
-            if (empty(Input::get('color_ids'))) {
-                $colorizableElement->colors()->sync(array());
+            if (!Input::exists('color_ids')) {
+                $colorizableElement->colors()->detach();
             } else {
                 $colorizableElement->colors()->sync(Input::get('color_ids'));
             }
 			$colorizableElement->update($input);
-			switch ($colorizableElement->of_type) {
-				case 'Product':
-					return Redirect::route('products.edit', $colorizableElement->of_id)
-						->with('message', 'Colorizable element was updated.');
-					break;
-				case 'GraphicsItem':
-					return Redirect::route('graphicsItems.edit', $colorizableElement->of_id)
-						->with('message', 'Colorizable element was updated.');
-					break;
-				default:
-					return Redirect::route('colorizableElements.index');
-					break;
-			}
-			return Redirect::route('colorizableElements.show', $id);
+			return $this->redirect($colorizableElement->of_type, $colorizableElement->of_id);
 		}
 
 		return Redirect::route('colorizableElements.edit', $id)
@@ -151,9 +125,36 @@ class ColorizableElementsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->colorizableElement->find($id)->delete();
+		/** @var ColorizableElement $el */
+		$el = $this->colorizableElement->find($id);
+		$_type = $el->of_type;
+		$_id = $el->of_id;
+		$el->delete();
 
-		return Redirect::route('colorizableElements.index');
+		return $this->redirect($_type, $_id);
+	}
+
+	/**
+	 * Redirect to correct master record after certain action
+	 * @param $type
+	 * @param $id
+	 * @return \Illuminate\Http\RedirectResponse
+     */
+	private function redirect($type, $id)
+	{
+		switch ($type) {
+			case 'Product':
+				return Redirect::route('products.edit', $id)
+					->with('message', 'Colorizable element was updated.');
+				break;
+			case 'GraphicsItem':
+				return Redirect::route('graphicsItems.edit', $id)
+					->with('message', 'Colorizable element was updated.');
+				break;
+			default:
+				return Redirect::route('colorizableElements.index');
+				break;
+		}
 	}
 
 }

@@ -81,7 +81,7 @@
                 <p>{{ link_to_route('colorizableElements.create', 'New Colorizable Element', 
                             array('id'=>$graphicsItem->id, 'type'=>'GraphicsItem'), 
                             array('class' => 'btn btn-sm btn-primary')) }}</p>
-                @if ($graphicsItem->colorizableElements)
+                @if ($graphicsItem->colorizables)
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -91,15 +91,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($graphicsItem->colorizableElements as $el)
+                            @foreach ($graphicsItem->colorizables as $el)
                                 <tr>
                                     <td>{{{ $el->name }}}</td>
                                     <td>{{{ $el->css_id }}}</td>
                                     <td>
-                                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('colorizableElements.destroy', $el->id))) }}
-                                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                                        {{ Form::close() }}
                                         {{ link_to_route('colorizableElements.edit', 'Edit', array($el->id), array('class' => 'btn btn-info')) }}
+                                        {{ link_to_route('colorizableElements.delete', 'Delete', array($el->id), array('class' => 'btn btn-danger')) }}
                                     </td>
                                 </tr>
                             @endforeach

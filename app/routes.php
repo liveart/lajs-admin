@@ -28,7 +28,11 @@ Route::group(array('before' => 'auth'), function() {
     Route::resource('products', 'ProductsController');
     Route::resource('categories', 'CategoriesController');
     Route::resource('locations', 'LocationsController');
+
+    // for ability to delete from nested forms
+    Route::get('colorizableElements/{id}/delete', array('as'=>'colorizableElements.delete','uses'=>'ColorizableElementsController@destroy'));
     Route::resource('colorizableElements', 'ColorizableElementsController');
+
     Route::resource('pclis', 'ProductColorLocationsController');
     Route::resource('graphicsCategories', 'GraphicsCategoriesController');
     Route::resource('graphicsItems', 'GraphicsItemsController');

@@ -39,7 +39,7 @@ class GraphicsItem extends Eloquent implements StaplerableInterface {
 
 	public function getJSON() {
 		$json = array();
-		$cats = GraphicsCategory::where('parent','=','0')->orderBy('name','asc')->get();
+		$cats = GraphicsCategory::whereNull('parent')->orWhere('parent', '=', '0')->orderBy('name','asc')->get();
 		foreach ($cats as $cat) {
             $this->buildCategory($cat);
 		}
@@ -49,9 +49,7 @@ class GraphicsItem extends Eloquent implements StaplerableInterface {
             // map to properly named attributes and remove junk
             $this->cleanCategory($el);
         }
-
         $json['graphicsCategoriesList'] = $arr;
-
         return $json;
 	}
 
@@ -83,6 +81,8 @@ class GraphicsItem extends Eloquent implements StaplerableInterface {
             $g['colors'] = strval($g['colors']);
             $g['categoryId'] = $g['category_id'];
             unset($g['category_id']);
+            $g['thumb'] = URL::to($g->thumbFile->url());
+            $g['image'] = URL::to($g->imageFile->url());
             $g['colorize'] = ($g['colorize'] == 'on') ? true : false;
             $g['multicolor'] = count($g->colorizables) > 0;
             $g['colorizableElements'] = $g->colorizables;

@@ -25,10 +25,10 @@
 					<td>{{{ $graphicsItem->thumb }}}</td>
 					<td>{{{ $graphicsItem->image }}}</td>
                     <td>
-                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('graphicsItems.destroy', $graphicsItem->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
                         {{ link_to_route('graphicsItems.edit', 'Edit', array($graphicsItem->id), array('class' => 'btn btn-info')) }}
+						{{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('graphicsItems.destroy', $graphicsItem->id))) }}
+							{{ Form::submit('Delete', array('class' => 'btn btn-danger', 'onclick' => 'javascript:confirm("Are you sure?");')) }}
+						{{ Form::close() }}
                     </td>
 		</tr>
 	</tbody>

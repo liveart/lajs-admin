@@ -20,7 +20,7 @@
 		<tbody>
 			@foreach ($graphicsCategories as $graphicsCategory)
 				<tr>
-					<td>{{ HTML::image($graphicsCategory->thumb->url()) }}</td>
+					<td>{{ HTML::image($graphicsCategory->thumb->url(), null, array('style' => 'width: 100px;')) }}</td>
                     <td>{{{ $graphicsCategory->name }}}</td>
                     <td>
                         @if (is_a($graphicsCategory->parentCategory, 'GraphicsCategory'))
