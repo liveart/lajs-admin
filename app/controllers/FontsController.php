@@ -21,7 +21,7 @@ class FontsController extends BaseController {
 	 */
 	public function index()
 	{
-		$fonts = $this->font->all();
+		$fonts = $this->font->all()->sortBy('name');
 
 		return View::make('fonts.index', compact('fonts'));
 	}
@@ -137,7 +137,7 @@ class FontsController extends BaseController {
 	}
 
     public function getCSS() {
-        return $this->font->getCSS();
+		return Response::make($this->font->getCSS())->header('Content-Type', 'text/css');
     }
 
 }

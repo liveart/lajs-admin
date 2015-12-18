@@ -49,7 +49,6 @@ class Font extends Eloquent implements StaplerableInterface {
 	}
 
     public function getCSS() {
-        header('Content-type: text/css');
         $out = '';
 
         $fonts = $this->orderBy('name','asc')->get();
