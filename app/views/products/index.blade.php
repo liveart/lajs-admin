@@ -35,7 +35,7 @@
 						@endif
 					</td>
 					<td>{{{ $product->category->name }}}</td>
-					<td>{{{ $product->description }}}</td>
+					<td class="col-md-7">{{{ $product->description }}}</td>
                     <td>
                         {{ link_to_route('products.edit', 'Edit', array($product->id), array('class' => 'btn btn-info')) }}
 						{{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('products.destroy', $product->id))) }}

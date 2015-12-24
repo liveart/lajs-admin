@@ -23,7 +23,7 @@
   <li><a href="#locations" role="tab" data-toggle="tab">Locations</a></li>
   <li><a href="#colors" role="tab" data-toggle="tab">Colors</a></li>
   <li><a href="#colorizable" role="tab" data-toggle="tab">Colorizable Elements</a></li>
-  <li><a href="#pcl" role="tab" data-toggle="tab">Product Color Images</a></li>
+  <li class="hidden"><a href="#pcl" role="tab" data-toggle="tab">Product Color Images</a></li>
 </ul>
 <!-- Tab panes -->
 <div class="tab-content">
@@ -115,13 +115,11 @@
                     <tbody>
                         @foreach ($product->locations as $loc)
                             <tr>
-                                <td>{{{ $loc->name }}}</td>
-                                <td>{{{ $loc->editableArea }}}</td>
+                                <td>{{ $loc->name }}</td>
+                                <td>{{ $loc->editableArea }}</td>
                                 <td>
-                                    {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('locations.destroy', $loc->id))) }}
-                                        {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                                    {{ Form::close() }}
                                     {{ link_to_route('locations.edit', 'Edit', array($loc->id), array('class' => 'btn btn-info')) }}
+                                    {{ link_to_route('locations.delete', 'Delete', array($loc->id), array('class' => 'btn btn-danger', 'onclick' => 'javascript:confirm("Are you sure?");')) }}
                                 </td>
                             </tr>
                         @endforeach
@@ -152,16 +150,14 @@
                         <tbody>
                             @foreach ($product->colors as $color)
                                 <tr>
-                                    <td>{{{ $color->name }}}</td>
+                                    <td>{{ $color->name }}</td>
                                     <td>
-                                        <div style="width:70px;height:30px;border:1px solid black;background-color:{{{ $color->value }}};"></div>
-                                        {{{ $color->value }}}
+                                        <div style="width:70px;height:30px;border:1px solid black;background-color:{{ $color->value }};"></div>
+                                        {{ $color->value }}
                                     </td>
                                     <td>
-                                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('colors.destroy', $color->id))) }}
-                                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                                        {{ Form::close() }}
                                         {{ link_to_route('colors.edit', 'Edit', array($color->id), array('class' => 'btn btn-info')) }}
+                                        {{ link_to_route('colors.delete', 'Delete', array($color->id), array('class' => 'btn btn-danger', 'onclick' => 'javascript:confirm("Are you sure?");')) }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -192,13 +188,11 @@
                         <tbody>
                             @foreach ($product->colorizables as $el)
                                 <tr>
-                                    <td>{{{ $el->name }}}</td>
-                                    <td>{{{ $el->css_id }}}</td>
+                                    <td>{{ $el->name }}</td>
+                                    <td>{{ $el->css_id }}</td>
                                     <td>
-                                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('colorizableElements.destroy', $el->id))) }}
-                                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                                        {{ Form::close() }}
                                         {{ link_to_route('colorizableElements.edit', 'Edit', array($el->id), array('class' => 'btn btn-info')) }}
+                                        {{ link_to_route('colorizableElements.delete', 'Delete', array($el->id), array('class' => 'btn btn-danger', 'onclick' => 'javascript:confirm("Are you sure?");')) }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -210,7 +204,8 @@
             </div>
         </div>
   </div>
-  <div class="tab-pane panel-body" id="pcl">
+  <!-- TODO refactor to jquery and api call to add pcli, then enable this panel back -->
+  <div class="tab-pane panel-body hidden" id="pcl">
       <!-- At least one location and one color should be defined to start with PCLI -->
       @if (($product->colors->count())&&($product->locations->count()))
           <table class="table table-striped">
@@ -226,13 +221,11 @@
                 @if ($product->pclis->count())
                 @foreach($product->pclis as $pcli)
                     <tr>
-                        <td>{{{ ($pcli->location != null) ? $pcli->location->name : 'Missing!'}}}</td>
-                        <td>{{{ ($pcli->color != null) ? $pcli->color->name : 'Missing!'}}}</td>
-                        <td>{{{$pcli->image}}}</td>
+                        <td>{{ ($pcli->location != null) ? $pcli->location->name : 'Missing!'}}</td>
+                        <td>{{ ($pcli->color != null) ? $pcli->color->name : 'Missing!'}}</td>
+                        <td>{{$pcli->image}}</td>
                         <td>
-                            {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('pclis.destroy', $pcli->id, $product->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                            {{ Form::close() }}
+                            {{ link_to_route('pclis.delete', 'Delete', array($pcli->id), array('class' => 'btn btn-danger', 'onclick' => 'javascript:confirm("Are you sure?");')) }}
                         </td>
                     </tr>
                 @endforeach

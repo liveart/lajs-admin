@@ -125,6 +125,7 @@ class ColorsController extends BaseController {
 	 * @return Response
 	 */
 	public function destroy($id) {
+		// TODO redirect to parent object, depending on type
 		$this->color->find($id)->delete();
 		return Redirect::route('colors.index');
 	}

@@ -9,7 +9,6 @@ class ProductColorLocationsController extends BaseController {
 		$this->pcli = $pcli;
 	}
 
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -37,7 +36,6 @@ class ProductColorLocationsController extends BaseController {
 	 * Remove the PCLI from product and redirect back to the product
 	 *
 	 * @param  int  $id
-	 * @param  int  $product_id
 	 * @return Response
 	 */
 	public function destroy($id)

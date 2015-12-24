@@ -27,17 +27,23 @@ Route::group(array('before' => 'auth'), function() {
     // All resources go here
     Route::resource('products', 'ProductsController');
     Route::resource('categories', 'CategoriesController');
-    Route::resource('locations', 'LocationsController');
 
     // for ability to delete from nested forms
     Route::get('colorizableElements/{id}/delete', array('as'=>'colorizableElements.delete','uses'=>'ColorizableElementsController@destroy'));
     Route::resource('colorizableElements', 'ColorizableElementsController');
 
+    Route::get('locations/{id}/delete', array('as'=>'locations.delete','uses'=>'LocationsController@destroy'));
+    Route::resource('locations', 'LocationsController');
+
+    Route::get('pclis/{id}/delete', array('as'=>'pclis.delete','uses'=>'ProductColorLocationsController@destroy'));
     Route::resource('pclis', 'ProductColorLocationsController');
+
+    Route::get('colors/{id}/delete', array('as'=>'colors.delete','uses'=>'ColorsController@destroy'));
+    Route::resource('colors', 'ColorsController');
+
     Route::resource('graphicsCategories', 'GraphicsCategoriesController');
     Route::resource('graphicsItems', 'GraphicsItemsController');
     Route::resource('fonts', 'FontsController');
-    Route::resource('colors', 'ColorsController');
 
     // Import
     Route::get('import','ImportController@showIndex');
