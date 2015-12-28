@@ -15,7 +15,7 @@
         @endif
     </div>
 </div>
-{{ Form::open(array('route' => 'categories.store', 'class' => 'form-horizontal')) }}
+{{ Form::open(array('route' => 'categories.store', 'class' => 'form-horizontal', 'files' => true)) }}
         <div class="form-group">
             {{ Form::label('name', 'Name:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
@@ -23,9 +23,9 @@
             </div>
         </div>
         <div class="form-group">
-            {{ Form::label('thumbUrl', 'Thumbnail URL:', array('class'=>'col-md-2 control-label')) }}
+            {{ Form::label('thumb', 'Thumbnail Image:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
-              {{ Form::text('thumbUrl', Input::old('thumbUrl'), array('class'=>'form-control', 'placeholder'=>'Thumbnail URL')) }}
+                {{ Form::file('thumb') }}
             </div>
         </div>
 <div class="form-group">
@@ -37,5 +37,3 @@
 {{ Form::close() }}
 
 @stop
-
-

@@ -41,6 +41,7 @@ class Product extends Eloquent {
 		$json['productCategoriesList'] = $cats;
 		foreach ($cats as $cat) {
 			$cat['products'] = Product::where('categoryId','=',$cat->id)->get();
+			$cat['thumbUrl'] = URL::to($cat->thumb->url());
 			// adjust attributes for proper schema
 			$atts = array('multicolor','resizable','showRuler','namesNumbersEnabled');
 			foreach ($cat['products'] as $prod) {

@@ -48,6 +48,8 @@ class CategoriesController extends BaseController {
 
 		if ($validation->passes())
 		{
+			// put no image by default
+			$input['thumbUrl'] = URL::asset('assets/images/noimage.png');
 			$this->category->create($input);
 
 			return Redirect::route('categories.index');
@@ -104,9 +106,11 @@ class CategoriesController extends BaseController {
 		if ($validation->passes())
 		{
 			$category = $this->category->find($id);
+            // update with actual thumbnail url
+            $category->thumbUrl = URL::to($category->thumb->url());
 			$category->update($input);
 
-			return Redirect::route('categories.show', $id);
+			return Redirect::route('categories.index');
 		}
 
 		return Redirect::route('categories.edit', $id)
