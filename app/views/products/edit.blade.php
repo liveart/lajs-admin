@@ -66,6 +66,10 @@
         <div class="form-group">
             {{ Form::label('options', 'Options:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
+                {{ Form::hidden('multicolor', 0) }}
+                {{ Form::hidden('resizable', 0) }}
+                {{ Form::hidden('showRuler', 0) }}
+                {{ Form::hidden('namesNumbersEnabled', 0) }}
                 {{ Form::label('multicolor', 'Is multicolor', array('class'=>'control-label')) }}
                 {{ Form::checkbox('multicolor', Input::old('multicolor')) }}<br/>
                 {{ Form::label('resizable', 'Is resizable', array('class'=>'control-label')) }}
@@ -108,6 +112,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Size</th>
                             <th>Editable Area</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -116,6 +121,7 @@
                         @foreach ($product->locations as $loc)
                             <tr>
                                 <td>{{ $loc->name }}</td>
+                                <td>{{ $loc->editableAreaUnits }}</td>
                                 <td>{{ $loc->editableArea }}</td>
                                 <td>
                                     {{ link_to_route('locations.edit', 'Edit', array($loc->id), array('class' => 'btn btn-info')) }}
@@ -206,8 +212,10 @@
   </div>
   <!-- TODO refactor to jquery and api call to add pcli, then enable this panel back -->
   <div class="tab-pane panel-body hidden" id="pcl">
-      <!-- At least one location and one color should be defined to start with PCLI -->
-      @if (($product->colors->count())&&($product->locations->count()))
+      <!-- At least one location and one color should be defined to start with PCLI
+           (($product->colors->count())&&($product->locations->count()))
+      -->
+      @if (false)
           <table class="table table-striped">
               <thead>
                 <tr>
@@ -250,8 +258,8 @@
 </div>
 <script>
     $('#tabs a').click(function (e) {
-      e.preventDefault()
-      $(this).tab('show')
+      e.preventDefault();
+      $(this).tab('show');
     })
 </script>
 

@@ -34,7 +34,7 @@
 							<span class="badge">namesNumbersEnabled</span>
 						@endif
 					</td>
-					<td>{{{ $product->category->name }}}</td>
+					<td>{{ ($product->category) ? $product->category->name : 'Not Assigned' }}</td>
 					<td class="col-md-7">{{{ $product->description }}}</td>
                     <td>
                         {{ link_to_route('products.edit', 'Edit', array($product->id), array('class' => 'btn btn-info')) }}

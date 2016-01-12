@@ -58,7 +58,11 @@ class Product extends Eloquent {
 				foreach ($prod['locations'] as $loc) {
 					$loc->editableArea = $loc->getCoords('editableArea');
 					$loc->editableAreaUnits = $loc->getCoords('editableAreaUnits');
-					$loc->clipRect = $loc->getCoords('clipRect');
+                    if (($loc->clipRect == '///') || ($loc->clipRect == '0/0/0/0')) {
+                        unset($loc->clipRect);
+                    } else {
+                        $loc->clipRect = $loc->getCoords('clipRect');
+                    }
 				}
 				// Colors and Location Images
 				$prod['colors'] = $prod->colors;
@@ -84,7 +88,11 @@ class Product extends Eloquent {
                     $prod['colorizableElements'] = $prod['colorizables'];
                 }
 				$prod['data'] = json_decode($prod['data']);
-				$prod['sizes'] = explode(',', $prod['sizes']);
+                if (empty($prod['sizes'])) {
+                    unset($prod['sizes']);
+                } else {
+                    $prod['sizes'] = explode(',', $prod['sizes']);
+                }
 			}
 		}
 		return $json;

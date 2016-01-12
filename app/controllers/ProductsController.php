@@ -101,10 +101,13 @@ class ProductsController extends BaseController {
 		{
 			$product = $this->product->find($id);
 			// process all checkbox values
+            /*
 			$chks = array('multicolor','resizable','showRuler','namesNumbersEnabled');
 			foreach ($chks as $chk) {
-				$product->setAttribute($chk, (Input::has($chk)) ? true : false);
+				$product->setAttribute($chk, Input::get($chk, false));
 			}
+            */
+
 			// process uploaded thumbnail file
 			if (Input::hasFile('thumbFile')) {
 				$dest = Config::get('app.product_upload_destination').'/'.$product->id;
